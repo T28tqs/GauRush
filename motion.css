@@ -1,0 +1,31 @@
+/* GauRush — video-backed instrument choreography. */
+.scene-video{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:center 54%;pointer-events:none;z-index:-3;opacity:0;transform:translateY(var(--scene-y,0px)) scale(1.035);transition:opacity .8s cubic-bezier(.16,1,.3,1)}
+.hero.video-ready .scene-video,.download.video-ready .scene-video{opacity:1}
+.download>.scene-video{z-index:-2;object-position:center 65%;transform:none}
+.download.video-ready>.download-art{background:linear-gradient(90deg,#061013df,#061013e8)}
+.video-retry{position:absolute;right:28px;bottom:68px;z-index:8;min-height:40px;padding:9px 13px;background:#09151f;color:var(--ivory);border:1px solid var(--cyan);font-size:11px}
+.video-retry[hidden]{display:none}
+.background-control{display:inline-flex;align-items:center;gap:9px;min-height:38px;margin-top:14px;padding:5px 0;font-size:10px;color:var(--cyan)}
+.background-control:before{content:"";height:7px;width:7px;background:currentColor}
+.background-control:hover{color:var(--amber)}
+.media-strip button,.download-button{overflow:hidden}
+.motion-glint{position:absolute;inset:0;pointer-events:none;z-index:4;background:linear-gradient(112deg,transparent 30%,#ecfaff00 40%,#f0faff3b 48%,#ffffff08 54%,transparent 65%);transform:translateX(-130%);mix-blend-mode:screen}
+@media(prefers-reduced-motion:no-preference){
+.media-strip button:hover .motion-glint,.media-strip button:focus-visible .motion-glint,.media-strip button[aria-selected=true] .motion-glint,.download-button:hover .motion-glint,.download-button:focus-visible .motion-glint{animation:metal-pass .85s cubic-bezier(.16,1,.3,1) both}
+@keyframes metal-pass{from{transform:translateX(-130%)}to{transform:translateX(130%)}}
+.kit-separator.motion-live .kit-ribbon{animation:chrome-tide 9s ease-in-out infinite}
+.kit-separator.motion-live .kit-star{animation:star-signal 5.5s ease-in-out infinite}
+.kit-separator.motion-live .kit-star:last-child{animation-delay:-2.75s}
+.kit-orbit.motion-live{animation:orbit-signal 48s linear infinite}
+.timeline-art.motion-live .timeline-playhead{animation:timeline-sweep 10s cubic-bezier(.45,0,.55,1) infinite}
+@keyframes chrome-tide{0%,100%{transform:translateY(-3px) rotate(-.35deg)}50%{transform:translateY(3px) rotate(.35deg)}}
+@keyframes star-signal{0%,100%{transform:scale(.94);opacity:.65}50%{transform:scale(1.07);opacity:1}}
+@keyframes orbit-signal{to{transform:rotate(360deg)}}
+@keyframes timeline-sweep{0%,100%{transform:translateX(calc(var(--timeline-travel,50px) * -1))}50%{transform:translateX(var(--timeline-travel,50px))}}
+.ambient-paused .kit-ribbon,.ambient-paused .kit-star,.ambient-paused .kit-orbit,.ambient-paused .timeline-playhead{animation-play-state:paused!important}
+.site-header nav a{transition:background .18s,color .18s,clip-path .3s cubic-bezier(.16,1,.3,1)}
+.kit-tool-links a{transition:transform .3s cubic-bezier(.16,1,.3,1),filter .3s}
+.kit-tool-links a:hover{transform:translateY(-3px);filter:brightness(1.12)}
+}
+@media(max-width:760px){.hero>.scene-video{object-position:62% center}.video-retry{right:20px;bottom:65px;font-size:10px}.background-control{min-height:40px}.download>.scene-video{object-position:60% center}}
+@media(prefers-reduced-motion:reduce){.scene-video{transform:none;transition:none}.motion-glint{display:none}}
