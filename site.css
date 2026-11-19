@@ -73,3 +73,8 @@ html{background:var(--paper)}body{background:var(--paper)}.wrap{width:min(1430px
 .hero-orbit-two { width:min(110vw,1190px); transform:translate(-50%,-50%) rotate(24deg) scaleY(.54); border-color:rgba(188,231,220,.08); }
 .hero-video-label { text-shadow:none; }
 @media(max-width:760px) { .hero { min-height:570px; } .hero-orbit { width:95vw; } .hero-orbit-two { width:140vw; } }
+
+/* Keep the cinematic hero centered across the full viewport. */
+.hero { grid-template-columns:minmax(0,1fr); }
+.hero-copy { min-width:0; }
+.hero h1 { width:100%; font-size:clamp(28px,8vw,144px); }
