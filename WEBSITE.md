@@ -17,3 +17,6 @@ Check mobile and desktop layout, keyboard navigation, all four video tabs, final
 
 ## Y2K chrome refinement
 chrome.css loads after retro.css and contains the self-hosted Orbitron display face, reflective title treatment, chamfered frames and metallic controls. Edit this layer for the current title and frame styling.
+
+## Supplied UI kit
+kit-assets.css embeds the supplied PNG artwork and cursor images. kit.css loads after it and contains readable placement and cursor styles. kit.js connects the tool artwork links to demo tabs and the export description. Original PNGs are retained in the local website/published/assets/kit-*.png files. Pointer artwork is enabled for fine-pointer hover devices, with native text, video and viewport-drag cursors retained.
