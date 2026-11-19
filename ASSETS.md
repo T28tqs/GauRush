@@ -10,3 +10,9 @@
 
 ## Supplied UI-kit artwork
 The user supplied separated transparent PNG files in Downloads/gaurush web elements. Ten decorations are reused unchanged in kit-assets.css: brandplate, PLY/SOG format badges, ribbon, orbit, star, barcode and Editor/Timeline/Export artwork. Original source PNGs are retained in the local website/published/assets/kit-*.png files. White and orange cursor PNGs are derived from supplied Layer-26 and Layer-25, resized proportionally to 40×47 with transparency preserved. No artwork content was generated or redrawn. Non-product identifiers in the barcode and orbital artwork are decorative and hidden from assistive technology.
+
+## User-supplied background video
+- gaurush_lightweight.webm is the supplied 1280×720 WebM, 4.042 seconds, 466,066 bytes, reused without transcoding.
+- SHA-256: f7251dc20ecc089cfb37355d3f56d43dfa6ea5d3590c366b94629428477aac96.
+- background-media.js embeds the original WebM bytes and a JPEG poster extracted from the same video. Local editable files: website/published/assets/gaurush-background.webm and background-poster.jpg.
+- The video replaces the static scene in the hero and download sections. No new imagery was generated for this change.
