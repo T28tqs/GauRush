@@ -13,8 +13,11 @@
 <link rel="stylesheet" href="chrome.css">
 <link rel="stylesheet" href="kit-assets.css">
 <link rel="stylesheet" href="kit.css">
+<link rel="stylesheet" href="motion.css">
 <script src="retro.js" defer></script>
 <script src="kit.js" defer></script>
+<script src="background-media.js" defer></script>
+<script src="motion.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -37,7 +40,7 @@
 </header>
 <main id="main">
 <section class="hero" id="top" aria-labelledby="hero-heading">
-<div class="scene-image" aria-hidden="true"></div><div class="scene-shade" aria-hidden="true"></div>
+<div class="scene-image" aria-hidden="true"></div><video class="scene-video" autoplay muted loop playsinline preload="auto" disablepictureinpicture tabindex="-1" aria-hidden="true"></video><button class="video-retry" hidden>Play background video</button><div class="scene-shade" aria-hidden="true"></div>
 <canvas id="particle-field" aria-hidden="true"></canvas>
 <div class="scene-corners" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
 <div class="hero-upper">
@@ -67,10 +70,10 @@
 <section class="workspace" id="workspace" aria-labelledby="workspace-heading">
 <div class="workspace-heading"><h2 id="workspace-heading">FROM CAPTURE<br><span>TO EXPORT.</span></h2><p>Open a single splat or an animated sequence.<br>One workspace to inspect, clean, and shape it.</p><span class="section-cross" aria-hidden="true">+</span></div>
 <div class="media-strip" role="tablist" aria-label="GauRush workflows">
-<button id="view-tab" role="tab" aria-selected="true" aria-controls="workspace-panel"><span class="feed-title"><svg class="icon"><use href="#i-play"/></svg>VIEW &amp; PLAY<span class="feed-index">A</span></span><span class="feed-image"><img src="assets/view.jpg" width="1280" height="800" alt="" loading="lazy"></span><span class="feed-caption">Inspect every frame<svg class="icon"><use href="#i-arrow"/></svg></span></button>
-<button id="crop-tab" role="tab" aria-selected="false" aria-controls="workspace-panel" tabindex="-1"><span class="feed-title"><svg class="icon"><use href="#i-box"/></svg>CROP VOLUMES<span class="feed-index">B</span></span><span class="feed-image"><img src="assets/crop.jpg" width="1280" height="800" alt="" loading="lazy"></span><span class="feed-caption">Keep what matters<svg class="icon"><use href="#i-arrow"/></svg></span></button>
-<button id="lasso-tab" role="tab" aria-selected="false" aria-controls="workspace-panel" tabindex="-1"><span class="feed-title"><svg class="icon"><use href="#i-lasso"/></svg>LASSO CLEANUP<span class="feed-index">C</span></span><span class="feed-image"><img src="assets/lasso.jpg" width="1280" height="800" alt="" loading="lazy"></span><span class="feed-caption">Remove the stray splats<svg class="icon"><use href="#i-arrow"/></svg></span></button>
-<button id="animate-tab" role="tab" aria-selected="false" aria-controls="workspace-panel" tabindex="-1"><span class="feed-title"><svg class="icon"><use href="#i-key"/></svg>ANIMATE<span class="feed-index">D</span></span><span class="feed-image"><img src="assets/animate.jpg" width="1280" height="800" alt="" loading="lazy"></span><span class="feed-caption">Follow the action<svg class="icon"><use href="#i-arrow"/></svg></span></button>
+<button id="view-tab" role="tab" aria-selected="true" aria-controls="workspace-panel"><span class="motion-glint" aria-hidden="true"></span><span class="feed-title"><svg class="icon"><use href="#i-play"/></svg>VIEW &amp; PLAY<span class="feed-index">A</span></span><span class="feed-image"><img src="assets/view.jpg" width="1280" height="800" alt="" loading="lazy"></span><span class="feed-caption">Inspect every frame<svg class="icon"><use href="#i-arrow"/></svg></span></button>
+<button id="crop-tab" role="tab" aria-selected="false" aria-controls="workspace-panel" tabindex="-1"><span class="motion-glint" aria-hidden="true"></span><span class="feed-title"><svg class="icon"><use href="#i-box"/></svg>CROP VOLUMES<span class="feed-index">B</span></span><span class="feed-image"><img src="assets/crop.jpg" width="1280" height="800" alt="" loading="lazy"></span><span class="feed-caption">Keep what matters<svg class="icon"><use href="#i-arrow"/></svg></span></button>
+<button id="lasso-tab" role="tab" aria-selected="false" aria-controls="workspace-panel" tabindex="-1"><span class="motion-glint" aria-hidden="true"></span><span class="feed-title"><svg class="icon"><use href="#i-lasso"/></svg>LASSO CLEANUP<span class="feed-index">C</span></span><span class="feed-image"><img src="assets/lasso.jpg" width="1280" height="800" alt="" loading="lazy"></span><span class="feed-caption">Remove the stray splats<svg class="icon"><use href="#i-arrow"/></svg></span></button>
+<button id="animate-tab" role="tab" aria-selected="false" aria-controls="workspace-panel" tabindex="-1"><span class="motion-glint" aria-hidden="true"></span><span class="feed-title"><svg class="icon"><use href="#i-key"/></svg>ANIMATE<span class="feed-index">D</span></span><span class="feed-image"><img src="assets/animate.jpg" width="1280" height="800" alt="" loading="lazy"></span><span class="feed-caption">Follow the action<svg class="icon"><use href="#i-arrow"/></svg></span></button>
 </div>
 <div class="workbench">
 <div class="demo-screen"><div class="instrument-title"><span><span class="status-dot"></span> GAURUSH / APPLICATION FEED</span><span id="video-counter">VIEW &amp; PLAY</span></div>
@@ -109,9 +112,9 @@
 </section>
 
 <section class="download" id="download" aria-labelledby="download-heading">
-<div class="download-art" aria-hidden="true"></div>
+<div class="download-art" aria-hidden="true"></div><video class="scene-video" autoplay muted loop playsinline preload="none" disablepictureinpicture tabindex="-1" aria-hidden="true"></video><button class="video-retry" hidden>Play background video</button>
 <div class="download-heading"><img src="assets/icon.svg" width="60" height="60" alt=""><h2 id="download-heading">TAKE CONTROL<br>OF YOUR <span>CAPTURE.</span></h2></div>
-<div class="download-content"><p>GauRush for Windows.<br>Your next frame starts here.</p><a id="installer-link" class="download-button" href="https://github.com/T28tqs/GauRush/releases/download/v0.31.0/GauRush.Setup.0.31.0.exe"><svg class="icon"><use href="#i-download"/></svg><span>Download for Windows</span><svg class="icon"><use href="#i-arrow"/></svg></a><div class="release-info"><span>v0.31.0</span><span>WINDOWS x64</span><span>92.4 MB</span></div><p class="download-status">Unsigned installer. Windows may show a SmartScreen warning.</p><details class="checksum"><summary>Verify your download <svg class="icon"><use href="#i-plus"/></svg></summary><p>SHA-256 / GauRush 0.31.0</p><code>EDA4676A5E42D1A34BCC656F47AF86C849D606E204CC20C0EFAEC14A055A50FC</code><p>File size: 92,378,226 bytes.</p></details></div>
+<div class="download-content"><p>GauRush for Windows.<br>Your next frame starts here.</p><a id="installer-link" class="download-button" href="https://github.com/T28tqs/GauRush/releases/download/v0.31.0/GauRush.Setup.0.31.0.exe"><span class="motion-glint" aria-hidden="true"></span><svg class="icon"><use href="#i-download"/></svg><span>Download for Windows</span><svg class="icon"><use href="#i-arrow"/></svg></a><div class="release-info"><span>v0.31.0</span><span>WINDOWS x64</span><span>92.4 MB</span></div><p class="download-status">Unsigned installer. Windows may show a SmartScreen warning.</p><button id="footer-motion-toggle" class="background-control" aria-pressed="true">Pause background motion</button><details class="checksum"><summary>Verify your download <svg class="icon"><use href="#i-plus"/></svg></summary><p>SHA-256 / GauRush 0.31.0</p><code>EDA4676A5E42D1A34BCC656F47AF86C849D606E204CC20C0EFAEC14A055A50FC</code><p>File size: 92,378,226 bytes.</p></details></div>
 <div class="first-run"><span class="status-dot"></span><p>First time? The guided tour walks you through the tools.<br>Replay it anytime from <strong>Help → Guided Tour.</strong></p></div>
 </section>
 </main>
