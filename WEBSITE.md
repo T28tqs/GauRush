@@ -14,3 +14,6 @@ The old site.css and site.js remain unused for historical continuity. The redesi
 Update the final download link, version, size and SHA-256 in index.html. Also update the header version and tool inventory version. Keep the header and hero free of download buttons.
 ## Verification
 Check mobile and desktop layout, keyboard navigation, all four video tabs, final installer link, checksum, and reduced-motion behavior. No build command is required for this static site.
+
+## Y2K chrome refinement
+chrome.css loads after retro.css and contains the self-hosted Orbitron display face, reflective title treatment, chamfered frames and metallic controls. Edit this layer for the current title and frame styling.
