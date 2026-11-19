@@ -1,0 +1,114 @@
+/* Visibility-aware video and one coherent instrument motion layer. */
+'use strict';
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  const master = document.querySelector('#motion-toggle');
+  const footerControl = document.querySelector('#footer-motion-toggle');
+  const videos = [...document.querySelectorAll('.scene-video')];
+  const visible = new Map();
+  const source = window.GAURUSH_BACKGROUND_MEDIA;
+  if (source?.poster) document.documentElement.style.setProperty('--scene-image', 'url("' + source.poster + '")');
+  const motionOn = () => master?.getAttribute('aria-pressed') === 'true';
+  function sync() {
+    const on = motionOn() && !document.hidden;
+    document.body.classList.toggle('ambient-paused', !on);
+    if (footerControl) {
+      footerControl.setAttribute('aria-pressed',String(motionOn()));
+      footerControl.textContent = motionOn() ? 'Pause background motion' : 'Play background motion';
+    }
+    videos.forEach(video => {
+      if (on && visible.get(video) && source?.video) {
+        if (!video.hasAttribute('src')) { video.src = source.video; video.load(); }
+        video.play().catch(() => {
+          const retry = video.parentElement.querySelector('.video-retry');
+          if (retry && !video.error) retry.hidden = false;
+        });
+      } else video.pause();
+    });
+  }
+  videos.forEach(video => {
+    video.muted = true; video.defaultMuted = true; video.loop = true; video.playsInline = true;
+    if (source?.poster) video.poster = source.poster;
+    video.addEventListener('loadeddata', () => { video.parentElement.classList.add('video-ready'); });
+    video.addEventListener('playing', () => {
+      const retry = video.parentElement.querySelector('.video-retry');
+      if (retry) retry.hidden = true;
+    });
+    video.addEventListener('error', () => {
+      video.parentElement.classList.remove('video-ready');
+      video.pause();
+      const retry = video.parentElement.querySelector('.video-retry');
+      if (retry) retry.hidden = true;
+    });
+    const section = video.parentElement;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([entry]) => {visible.set(video,entry.isIntersecting);sync();},{threshold:0}).observe(section);
+    } else visible.set(video,true);
+    section.querySelector('.video-retry')?.addEventListener('click',() => {
+      if (!motionOn()) master?.click();
+      if (!video.hasAttribute('src') && source?.video) video.src = source.video;
+      video.play().catch(()=>{});
+    });
+  });
+  footerControl?.addEventListener('click',()=>master?.click());
+  if (master) new MutationObserver(sync).observe(master,{attributes:true,attributeFilter:['aria-pressed']});
+  document.addEventListener('visibilitychange',sync);
+  reduce.addEventListener('change',sync);
+  sync();
+
+  const ambient = [...document.querySelectorAll('.kit-separator,.kit-orbit,.timeline-art')];
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => entry.target.classList.toggle('motion-live',entry.isIntersecting)),{threshold:.05});
+    ambient.forEach(el=>observer.observe(el));
+  } else ambient.forEach(el=>el.classList.add('motion-live'));
+  const timeline = document.querySelector('.timeline-art');
+  if (timeline) {
+    const fit = () => timeline.style.setProperty('--timeline-travel', Math.min(115,timeline.clientWidth*.16)+'px');
+    fit(); if ('ResizeObserver' in window) new ResizeObserver(fit).observe(timeline);
+  }
+
+  // A bounded startup sequence assembles the instrument panels around the capture.
+  const entrances = [
+    [document.querySelector('.hero .signal-panel'),-18,0,0],
+    [document.querySelector('.hero .study-panel'),18,0,110],
+    [document.querySelector('.hero .kit-wordmark'),0,-10,190],
+    [document.querySelector('.hero h1'),0,9,260],
+    [document.querySelector('.hero-copy p'),0,7,330]
+  ];
+  let startup = [];
+  if (!reduce.matches && motionOn()) entrances.forEach(([el,x,y,delay]) => {
+    if (!el?.animate || getComputedStyle(el).display==='none') return;
+    startup.push(el.animate([
+      {opacity:.2,transform:'translate('+x+'px,'+y+'px)',filter:'blur(2px)'},
+      {opacity:1,transform:'translate(0,0)',filter:'blur(0)'}
+    ],{duration:700,delay,easing:'cubic-bezier(.16,1,.3,1)'}));
+  });
+
+  // Preserve native details semantics while showing the relationship to the summary.
+  const transitions = new Map();
+  function clearTransitions() {
+    startup.forEach(a=>a.finish()); startup=[];
+    transitions.forEach((state,details)=>{
+      state.animation.cancel();details.open=state.targetOpen;details.style.overflow='';
+    });transitions.clear();
+  }
+  document.querySelectorAll('.tool-inventory details').forEach(details => {
+    const summary = details.querySelector('summary');
+    summary.addEventListener('click',event=>{
+      if (reduce.matches || !details.animate) return;
+      event.preventDefault();
+      const previous=transitions.get(details);
+      const targetOpen=!(previous?previous.targetOpen:details.open);
+      const from=details.getBoundingClientRect().height;
+      previous?.animation.cancel();
+      details.open=true;
+      const to=targetOpen?details.scrollHeight:summary.getBoundingClientRect().height+1;
+      details.style.overflow='hidden';
+      const animation=details.animate([{height:from+'px'},{height:to+'px'}],{duration:300,easing:'cubic-bezier(.16,1,.3,1)'});
+      transitions.set(details,{targetOpen,animation});
+      animation.onfinish=()=>{details.open=targetOpen;details.style.overflow='';transitions.delete(details);};
+    });
+  });
+  reduce.addEventListener('change',()=>{if(reduce.matches)clearTransitions();});
+  if (master) new MutationObserver(()=>{if(!motionOn())clearTransitions();}).observe(master,{attributes:true,attributeFilter:['aria-pressed']});
+})();
