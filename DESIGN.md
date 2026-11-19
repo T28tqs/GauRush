@@ -62,7 +62,7 @@ components:
 
 The user-confirmed world combines retro-futuristic monitoring instruments with grainy ocean/chrome imagery. The later user-supplied Y2K metallic UI-kit reference refines that world with angular silver bevels and Orbitron titles. Near-black asymmetric consoles and cyan/amber/magenta instruments remain beneath the chrome layer. The text-free teal logo remains the identity anchor.
 
-Artwork and canvas studies supply atmosphere; real application recordings supply product evidence. The timeline remains explicitly illustrative. This document describes the final cascade: base retro.css (local site.css) followed by chrome.css; behavior remains retro.js (local site.js).
+Artwork and canvas studies supply atmosphere; real application recordings supply product evidence. The timeline remains explicitly illustrative. This document describes the final cascade: base retro.css (local site.css), then chrome.css, then kit-assets.css and kit.css. Base behavior remains retro.js (local site.js); kit.js connects the supplied tool artwork to real page workflows.
 
 **Key Characteristics:**
 - Cinematic image depth with double-beveled chamfered instruments.
@@ -97,6 +97,8 @@ Hero outer margins and 690px minimum remain from the base. Its upper grid become
 The base max-width 1000px compact layout remains active. The chrome layer additionally compresses type and instruments at max-width 1100px, with upper columns 240px / flexible / 235px. At max-width 760px, the header is 56px, menu expands, feeds become two columns, console sections stack, gutters are 14px and instruments use flexible / 175px columns. At max-width 380px the right instrument is 155px and hero heading 32px. From 1800px, hero is 840px high, gutters 4vw, instruments 320px / flexible / 300px, hero heading 82px, workspace heading 66px and system/download headings 64px.
 
 Provenance: base tokens and behavior derive from site.css/site.js, deployed as retro.css/retro.js. chrome.css is the later user-authorized refinement and must load after retro.css. All values above describe that cascade.
+
+The final kit layer places the supplied desktop brandplate in the hero center at a maximum 480px width (570px from 1800px, 360px below 1100px, hidden at 1000px). A ribbon and star separator occupies 120px height between hero and workspace, changing to 140px wide, 100px at 1100px, 90px mobile and 78px at 380px. Workspace top padding is now 18px desktop and 9px mobile. The system explanation gains an orbital illustration in a 112px second column, with 132px wide, 90px compact/mobile and 70px small-phone variants. Kit format badges align right on desktop and left on mobile. A barcode and three tool links share a row, stacking below 760px; links retain at least 44px height. The footer gains a decorative star on desktop. Original typography and chrome/base tokens above remain normative except these explicit final-layer overrides. Mobile system-description text is 11px.
 
 ## Elevation & Depth
 
@@ -135,6 +137,16 @@ Native details/summary behavior remains. Open inventory rows receive a dark hori
 ### Media and scene controls
 
 Real recordings, native controls, fallback links, visibility pausing, keyboard feed selection and the live torus/dust/radial loop remain from retro.js. chrome.css changes their framing and typography without changing behavior. Torus height becomes 135px desktop, 160px wide and 92px mobile. Reduced-motion rules remain authoritative; forced-colors restores legible headings and simple panel/action borders.
+
+### Supplied artwork and real tool anchors
+
+The final kit layer reuses twelve user-supplied transparent PNGs from Downloads/gaurush web elements. Ten original artwork assets are retained in the local website/published/assets/kit-{brandplate,ply,sog,ribbon,orbit,star,barcode,export,timeline,editor}.png files. Their pixels are embedded in kit-assets.css; kit.css contains the editable placement and cursor rules. This refinement performs no image generation or redraw. ASSETS.md owns detailed provenance; existing scene-art provenance remains unchanged.
+
+The brandplate, ribbon, stars, orbit and barcode are decorative and hidden from assistive technology. PLY/SOG badges carry role=img and explicit support labels. The three artwork tool anchors have accessible text: Editor selects the view demo and links to workspace; Timeline selects the animate demo and links to workspace; Export opens the last inventory disclosure and links to features. These are actual page actions, not decorative controls. Tool links translate upward 2px on hover over .2s and use a 2px amber focus outline offset 2px. Reduced motion removes that transition. Forced-colors outlines the anchors, exposes their accessible text visually, and hides the image artwork inside them.
+
+### Native cursor states
+
+On devices matching hover:hover and pointer:fine, the white supplied cursor is the page default with hotspot (6,6), while orange indicates links, buttons, summaries and tabs with hotspot (8,6). Cursor PNGs are proportional 40×47 derivatives of user-supplied Layer-26 and Layer-25 assets with transparency preserved. Native fallbacks are auto and pointer respectively. Text fields/contenteditable retain text cursors; video retains auto; the torus retains grab/grabbing. Touch and coarse pointers do not receive custom cursor styling.
 
 ## Do's and Don'ts
 
