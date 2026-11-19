@@ -77,4 +77,4 @@ html{background:var(--paper)}body{background:var(--paper)}.wrap{width:min(1430px
 /* Keep the cinematic hero centered across the full viewport. */
 .hero { grid-template-columns:minmax(0,1fr); }
 .hero-copy { min-width:0; }
-.hero h1 { width:100%; font-size:clamp(28px,8vw,144px); }
+.hero h1 { width:100%; font-size:clamp(28px,8vw,128px); }
