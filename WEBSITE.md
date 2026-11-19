@@ -20,3 +20,6 @@ chrome.css loads after retro.css and contains the self-hosted Orbitron display f
 
 ## Supplied UI kit
 kit-assets.css embeds the supplied PNG artwork and cursor images. kit.css loads after it and contains readable placement and cursor styles. kit.js connects the tool artwork links to demo tabs and the export description. Original PNGs are retained in the local website/published/assets/kit-*.png files. Pointer artwork is enabled for fine-pointer hover devices, with native text, video and viewport-drag cursors retained.
+
+## Video and motion
+background-media.js contains the supplied WebM and a still-frame fallback. motion.js handles muted looped background playback, visibility, pause/retry controls, the startup sequence, and smooth disclosure transitions. motion.css contains chrome sweeps and visible-only ambient decoration motion. Reduced-motion preference defaults to the still frame. Original video and poster remain in local website/published/assets/ for future replacement. Keep the script order retro.js → kit.js → background-media.js → motion.js; motion.css loads last.
