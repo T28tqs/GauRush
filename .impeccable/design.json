@@ -1,0 +1,310 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-19T20:13:02.492Z",
+  "title": "Design System: GauRush",
+  "extensions": {
+    "colorMeta": {
+      "void": {
+        "role": "neutral",
+        "displayName": "void",
+        "canonical": "#050809",
+        "tonalRamp": [
+          "oklch(15% 0.012 220)",
+          "oklch(26% 0.012 220)",
+          "oklch(37% 0.012 220)",
+          "oklch(48% 0.012 220)",
+          "oklch(59% 0.012 220)",
+          "oklch(70% 0.012 220)",
+          "oklch(82% 0.012 220)",
+          "oklch(95% 0.012 220)"
+        ]
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "panel",
+        "canonical": "#090e11",
+        "tonalRamp": [
+          "oklch(15% 0.012 225)",
+          "oklch(26% 0.012 225)",
+          "oklch(37% 0.012 225)",
+          "oklch(48% 0.012 225)",
+          "oklch(59% 0.012 225)",
+          "oklch(70% 0.012 225)",
+          "oklch(82% 0.012 225)",
+          "oklch(95% 0.012 225)"
+        ]
+      },
+      "raised": {
+        "role": "neutral",
+        "displayName": "raised",
+        "canonical": "#10181b",
+        "tonalRamp": [
+          "oklch(15% 0.012 220)",
+          "oklch(26% 0.012 220)",
+          "oklch(37% 0.012 220)",
+          "oklch(48% 0.012 220)",
+          "oklch(59% 0.012 220)",
+          "oklch(70% 0.012 220)",
+          "oklch(82% 0.012 220)",
+          "oklch(95% 0.012 220)"
+        ]
+      },
+      "ivory": {
+        "role": "neutral",
+        "displayName": "ivory",
+        "canonical": "#e8e4d9",
+        "tonalRamp": [
+          "oklch(15% 0.012 90)",
+          "oklch(26% 0.012 90)",
+          "oklch(37% 0.012 90)",
+          "oklch(48% 0.012 90)",
+          "oklch(59% 0.012 90)",
+          "oklch(70% 0.012 90)",
+          "oklch(82% 0.012 90)",
+          "oklch(95% 0.012 90)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "muted",
+        "canonical": "#a0b5b5",
+        "tonalRamp": [
+          "oklch(15% 0.012 195)",
+          "oklch(26% 0.012 195)",
+          "oklch(37% 0.012 195)",
+          "oklch(48% 0.012 195)",
+          "oklch(59% 0.012 195)",
+          "oklch(70% 0.012 195)",
+          "oklch(82% 0.012 195)",
+          "oklch(95% 0.012 195)"
+        ]
+      },
+      "cyan": {
+        "role": "primary",
+        "displayName": "cyan",
+        "canonical": "#75d3df",
+        "tonalRamp": [
+          "oklch(15% 0.07 210)",
+          "oklch(26% 0.07 210)",
+          "oklch(37% 0.07 210)",
+          "oklch(48% 0.07 210)",
+          "oklch(59% 0.07 210)",
+          "oklch(70% 0.07 210)",
+          "oklch(82% 0.07 210)",
+          "oklch(95% 0.07 210)"
+        ]
+      },
+      "mint": {
+        "role": "tertiary",
+        "displayName": "mint",
+        "canonical": "#b3e0c9",
+        "tonalRamp": [
+          "oklch(15% 0.07 160)",
+          "oklch(26% 0.07 160)",
+          "oklch(37% 0.07 160)",
+          "oklch(48% 0.07 160)",
+          "oklch(59% 0.07 160)",
+          "oklch(70% 0.07 160)",
+          "oklch(82% 0.07 160)",
+          "oklch(95% 0.07 160)"
+        ]
+      },
+      "amber": {
+        "role": "secondary",
+        "displayName": "amber",
+        "canonical": "#f4b879",
+        "tonalRamp": [
+          "oklch(15% 0.07 65)",
+          "oklch(26% 0.07 65)",
+          "oklch(37% 0.07 65)",
+          "oklch(48% 0.07 65)",
+          "oklch(59% 0.07 65)",
+          "oklch(70% 0.07 65)",
+          "oklch(82% 0.07 65)",
+          "oklch(95% 0.07 65)"
+        ]
+      },
+      "magenta": {
+        "role": "tertiary",
+        "displayName": "magenta",
+        "canonical": "#8b607d",
+        "tonalRamp": [
+          "oklch(15% 0.07 340)",
+          "oklch(26% 0.07 340)",
+          "oklch(37% 0.07 340)",
+          "oklch(48% 0.07 340)",
+          "oklch(59% 0.07 340)",
+          "oklch(70% 0.07 340)",
+          "oklch(82% 0.07 340)",
+          "oklch(95% 0.07 340)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "line",
+        "canonical": "#394447",
+        "tonalRamp": [
+          "oklch(15% 0.012 215)",
+          "oklch(26% 0.012 215)",
+          "oklch(37% 0.012 215)",
+          "oklch(48% 0.012 215)",
+          "oklch(59% 0.012 215)",
+          "oklch(70% 0.012 215)",
+          "oklch(82% 0.012 215)",
+          "oklch(95% 0.012 215)"
+        ]
+      },
+      "dim-line": {
+        "role": "neutral",
+        "displayName": "dim line",
+        "canonical": "#253135",
+        "tonalRamp": [
+          "oklch(15% 0.012 215)",
+          "oklch(26% 0.012 215)",
+          "oklch(37% 0.012 215)",
+          "oklch(48% 0.012 215)",
+          "oklch(59% 0.012 215)",
+          "oklch(70% 0.012 215)",
+          "oklch(82% 0.012 215)",
+          "oklch(95% 0.012 215)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Geometric display",
+        "purpose": "Cinematic hero heading."
+      },
+      "body": {
+        "displayName": "Technical body",
+        "purpose": "Explanations; CSS component overrides are documented in DESIGN.md."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "reveal-ease",
+        "value": "cubic-bezier(.16,1,.3,1)",
+        "purpose": "Section reveal and panel change easing."
+      },
+      {
+        "name": "reveal-opacity",
+        "value": ".7s",
+        "purpose": "Opacity/blur reveal."
+      },
+      {
+        "name": "reveal-transform",
+        "value": ".85s",
+        "purpose": "20px vertical reveal."
+      },
+      {
+        "name": "panel-in",
+        "value": ".45s",
+        "purpose": "Workflow copy transition."
+      },
+      {
+        "name": "feed-state",
+        "value": ".18s",
+        "purpose": "Feed border/background transition."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "tablet-max",
+        "value": "1000px"
+      },
+      {
+        "name": "mobile-max",
+        "value": "760px"
+      },
+      {
+        "name": "small-phone-max",
+        "value": "380px"
+      },
+      {
+        "name": "wide-min",
+        "value": "1800px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Download action",
+      "kind": "button",
+      "refersTo": "download-button",
+      "description": "Download action from the implemented monitoring-station surface.",
+      "html": "<a class=\"ds-download\" href=\"#download\">↓ Download for Windows ↗</a>",
+      "css": ".ds-download{font-family:\"IBM Plex Mono\",monospace;display:inline-flex;align-items:center;min-height:58px;padding:15px 18px;background:#f4b879;color:#17130d;border:1px solid #f4b879;font-size:12px;text-decoration:none;transition:background .18s,color .18s}.ds-download:hover{background:#f8d6aa;color:#050809}.ds-download:focus-visible{outline:2px solid #f4b879;outline-offset:5px}"
+    },
+    {
+      "name": "Text action",
+      "kind": "button",
+      "description": "Text action from the implemented monitoring-station surface.",
+      "html": "<a class=\"ds-text\" href=\"#workspace\">Explore the workspace ↗</a>",
+      "css": ".ds-text{font-family:\"IBM Plex Mono\",monospace;display:inline-flex;min-height:36px;align-items:center;color:#f4b879;font-size:12px;line-height:1.5;border-bottom:1px solid #f4b879;padding-bottom:5px;text-decoration:none}.ds-text:hover{text-decoration:underline}.ds-text:focus-visible{outline:2px solid #f4b879;outline-offset:5px}"
+    },
+    {
+      "name": "Feed selector",
+      "kind": "custom",
+      "refersTo": "feed-tab",
+      "description": "Feed selector from the implemented monitoring-station surface.",
+      "html": "<button class=\"ds-feed\" aria-selected=\"true\">01 / VIEW &amp; PLAY</button>",
+      "css": ".ds-feed{font-family:\"IBM Plex Mono\",monospace;padding:10px 12px;background:#090e11;border:1px solid #394447;color:#a0b5b5;font-size:10px;cursor:pointer;transition:border-color .18s,background .18s}.ds-feed:hover{border-color:#75d3df;background:#111e23}.ds-feed[aria-selected=true]{border-color:#f4b879;color:#f4b879;background:#1b1713}.ds-feed:focus-visible{outline:2px solid #f4b879;outline-offset:-4px}"
+    },
+    {
+      "name": "Instrument panel",
+      "kind": "card",
+      "description": "Instrument panel from the implemented monitoring-station surface.",
+      "html": "<div class=\"ds-panel\"><div class=\"ds-title\">SPATIAL SIGNAL / XYZ</div><p>Illustrative radial study</p></div>",
+      "css": ".ds-panel{font-family:\"IBM Plex Mono\",monospace;background:rgba(4,8,11,.6);border:1px solid #355365;color:#75d3df}.ds-title{min-height:31px;padding:8px 12px;border-bottom:1px solid #355365;font-size:10px;letter-spacing:.055em}.ds-panel p{font-size:13px;line-height:1.8;padding:12px;margin:0;color:#a0b5b5}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "description": "Navigation from the implemented monitoring-station surface.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#top\" aria-current=\"location\">Overview</a><a href=\"#workspace\">Workspace</a><a href=\"#features\">System</a></nav>",
+      "css": ".ds-nav{display:flex;gap:32px;background:rgba(5,8,9,.97);padding:0 24px}.ds-nav a{font-family:\"IBM Plex Mono\",monospace;font-size:11px;text-transform:uppercase;letter-spacing:.06em;padding:18px 0;color:#a0b5b5;text-decoration:none}.ds-nav a:hover,.ds-nav a[aria-current]{color:#f4b879}.ds-nav a:focus-visible{outline:2px solid #f4b879;outline-offset:5px}"
+    },
+    {
+      "name": "Format tag",
+      "kind": "chip",
+      "description": "Format tag from the implemented monitoring-station surface.",
+      "html": "<span class=\"ds-format\">.SOG</span>",
+      "css": ".ds-format{font-family:\"IBM Plex Mono\",monospace;display:inline-block;padding:4px 7px;border:1px solid #394447;font-size:9px;color:#75d3df;background:#090e11}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Spatial Monitoring Station",
+    "overview": "The user-confirmed world combines retro-futuristic monitoring instruments with grainy ocean/chrome imagery. Near-black fields, precise cyan/amber/magenta lines, dense asymmetric consoles, and technical typography support the capture-editing workflow. The text-free teal GauRush logo remains the identity anchor.\n\nArtwork and canvas studies supply atmosphere; real application recordings supply product evidence. The timeline is explicitly illustrative. This is an extraction of the implemented code, not a proposed replacement.",
+    "keyCharacteristics": [
+      "Cinematic image depth with thin square instrument frames.",
+      "Large geometric headings and compact monospaced information.",
+      "Asymmetric workstation density.",
+      "Controllable live studies and real recordings."
+    ],
+    "rules": [
+      {
+        "name": "The Evidence Rule",
+        "body": "Decorative telemetry must not imply measured application performance.",
+        "section": "colors"
+      },
+      {
+        "name": "The Reading Rule",
+        "body": "Keep explanatory text readable and distinguish decorative micro-labels from essential controls. The general paragraph rule is 13px; several implemented explanations override it to 12px, and supporting notes use 10–11px. Mobile hero copy is 12px. Decorative instrumentation falls to 7–10px, including some motion/reset controls. The code therefore does not satisfy a blanket 13px minimum.",
+        "section": "typography"
+      }
+    ],
+    "dos": [
+      "Do preserve the teal logo and cyan/amber/magenta instrument palette.",
+      "Do label illustrations and use real recordings for product behavior.",
+      "Do preserve visible focus, manual motion controls and readable explanations.",
+      "Do retain mobile two-column feeds and stacked consoles."
+    ],
+    "donts": [
+      "Don't invent performance statistics from decorative telemetry.",
+      "Don't replace square console framing with generic rounded cards.",
+      "Don't add download buttons to the header or hero; the main download belongs in the final section.",
+      "Don't apply decorative micro-label sizing to explanatory copy."
+    ]
+  }
+}
