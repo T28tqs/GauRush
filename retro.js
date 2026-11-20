@@ -45,13 +45,13 @@
     panel.querySelectorAll('.workflow-details li').forEach((li, i) => li.textContent = f.details[i]);
     document.querySelector('#video-counter').textContent = f.name;
     fallback.hidden = true;
-    fallback.href = 'assets/' + f.file + '.webm';
+    fallback.href = 'assets/' + f.file + '.webm?v=emerald-4s-1';
     panel.classList.remove('changing');
     requestAnimationFrame(() => panel.classList.add('changing'));
-    if (video.getAttribute('src') !== 'assets/' + f.file + '.webm') {
+    if (video.getAttribute('src') !== 'assets/' + f.file + '.webm?v=emerald-4s-1') {
       video.pause();
-      video.poster = 'assets/' + f.file + '.jpg';
-      video.src = 'assets/' + f.file + '.webm';
+      video.poster = 'assets/' + f.file + '.jpg?v=emerald-4s-1';
+      video.src = 'assets/' + f.file + '.webm?v=emerald-4s-1';
       video.setAttribute('aria-label', f.aria);
       mediaStatus.textContent = 'LOADING VIDEO';
       video.load();

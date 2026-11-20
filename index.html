@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="kit.css">
 <link rel="stylesheet" href="motion.css">
 <link rel="stylesheet" href="identity.css?v=emerald-michroma-1">
-<script src="retro.js" defer></script>
+<script src="retro.js?v=emerald-4s-1" defer></script>
 <script src="kit.js" defer></script>
 <script src="background-media.js" defer></script>
 <script src="motion.js" defer></script>
@@ -71,14 +71,14 @@
 <section class="workspace" id="workspace" aria-labelledby="workspace-heading">
 <div class="workspace-heading"><h2 id="workspace-heading">FROM CAPTURE<br><span>TO EXPORT.</span></h2><p>Open a single splat or an animated sequence.<br>One workspace to inspect, clean, and shape it.</p><span class="section-cross" aria-hidden="true">+</span></div>
 <div class="media-strip" role="tablist" aria-label="GauRush workflows">
-<button id="view-tab" role="tab" aria-selected="true" aria-controls="workspace-panel"><span class="motion-glint" aria-hidden="true"></span><span class="feed-title"><svg class="icon"><use href="#i-play"/></svg>VIEW &amp; PLAY<span class="feed-index">A</span></span><span class="feed-image"><img src="assets/view.jpg" width="1280" height="800" alt="" loading="lazy"></span><span class="feed-caption">Inspect every frame<svg class="icon"><use href="#i-arrow"/></svg></span></button>
-<button id="crop-tab" role="tab" aria-selected="false" aria-controls="workspace-panel" tabindex="-1"><span class="motion-glint" aria-hidden="true"></span><span class="feed-title"><svg class="icon"><use href="#i-box"/></svg>CROP VOLUMES<span class="feed-index">B</span></span><span class="feed-image"><img src="assets/crop.jpg" width="1280" height="800" alt="" loading="lazy"></span><span class="feed-caption">Keep what matters<svg class="icon"><use href="#i-arrow"/></svg></span></button>
-<button id="lasso-tab" role="tab" aria-selected="false" aria-controls="workspace-panel" tabindex="-1"><span class="motion-glint" aria-hidden="true"></span><span class="feed-title"><svg class="icon"><use href="#i-lasso"/></svg>LASSO CLEANUP<span class="feed-index">C</span></span><span class="feed-image"><img src="assets/lasso.jpg" width="1280" height="800" alt="" loading="lazy"></span><span class="feed-caption">Remove the stray splats<svg class="icon"><use href="#i-arrow"/></svg></span></button>
-<button id="animate-tab" role="tab" aria-selected="false" aria-controls="workspace-panel" tabindex="-1"><span class="motion-glint" aria-hidden="true"></span><span class="feed-title"><svg class="icon"><use href="#i-key"/></svg>ANIMATE<span class="feed-index">D</span></span><span class="feed-image"><img src="assets/animate.jpg" width="1280" height="800" alt="" loading="lazy"></span><span class="feed-caption">Follow the action<svg class="icon"><use href="#i-arrow"/></svg></span></button>
+<button id="view-tab" role="tab" aria-selected="true" aria-controls="workspace-panel"><span class="motion-glint" aria-hidden="true"></span><span class="feed-title"><svg class="icon"><use href="#i-play"/></svg>VIEW &amp; PLAY<span class="feed-index">A</span></span><span class="feed-image"><img src="assets/view.jpg?v=emerald-4s-1" width="1280" height="800" alt="" loading="lazy"></span><span class="feed-caption">Inspect every frame<svg class="icon"><use href="#i-arrow"/></svg></span></button>
+<button id="crop-tab" role="tab" aria-selected="false" aria-controls="workspace-panel" tabindex="-1"><span class="motion-glint" aria-hidden="true"></span><span class="feed-title"><svg class="icon"><use href="#i-box"/></svg>CROP VOLUMES<span class="feed-index">B</span></span><span class="feed-image"><img src="assets/crop.jpg?v=emerald-4s-1" width="1280" height="800" alt="" loading="lazy"></span><span class="feed-caption">Keep what matters<svg class="icon"><use href="#i-arrow"/></svg></span></button>
+<button id="lasso-tab" role="tab" aria-selected="false" aria-controls="workspace-panel" tabindex="-1"><span class="motion-glint" aria-hidden="true"></span><span class="feed-title"><svg class="icon"><use href="#i-lasso"/></svg>LASSO CLEANUP<span class="feed-index">C</span></span><span class="feed-image"><img src="assets/lasso.jpg?v=emerald-4s-1" width="1280" height="800" alt="" loading="lazy"></span><span class="feed-caption">Remove the stray splats<svg class="icon"><use href="#i-arrow"/></svg></span></button>
+<button id="animate-tab" role="tab" aria-selected="false" aria-controls="workspace-panel" tabindex="-1"><span class="motion-glint" aria-hidden="true"></span><span class="feed-title"><svg class="icon"><use href="#i-key"/></svg>ANIMATE<span class="feed-index">D</span></span><span class="feed-image"><img src="assets/animate.jpg?v=emerald-4s-1" width="1280" height="800" alt="" loading="lazy"></span><span class="feed-caption">Follow the action<svg class="icon"><use href="#i-arrow"/></svg></span></button>
 </div>
 <div class="workbench">
 <div class="demo-screen"><div class="instrument-title"><span><span class="status-dot"></span> GAURUSH / APPLICATION FEED</span><span id="video-counter">VIEW &amp; PLAY</span></div>
-<video id="workspace-demo" src="assets/view.webm" poster="assets/view.jpg" controls autoplay muted loop playsinline preload="metadata" aria-label="GauRush playback demo using a synthetic splat capture"></video>
+<video id="workspace-demo" src="assets/view.webm?v=emerald-4s-1" poster="assets/view.jpg?v=emerald-4s-1" controls autoplay muted loop playsinline preload="metadata" aria-label="GauRush playback demo using a synthetic splat capture"></video>
 <div class="demo-foot"><span>RECORDED IN GAURUSH / SYNTHETIC CAPTURE</span><span class="cyan" id="media-status">VIDEO READY</span></div></div>
 <div id="workspace-panel" role="tabpanel" tabindex="0" aria-labelledby="view-tab">
 <div class="panel-heading"><span class="panel-label">VIEWPORT / PLAYBACK</span><svg class="icon"><use href="#i-plus"/></svg></div>
@@ -86,7 +86,7 @@
 <p>Scrub the timeline and inspect a capture from different angles. Open a single Gaussian file, a folder of frames, or add multiple captures to your scene.</p>
 <ul class="workflow-details"><li>Orbit, pan, and zoom</li><li>Perspective &amp; orthographic views</li><li>Sequence playback &amp; frame scrubbing</li></ul>
 <a class="text-link" href="#features">Explore the toolset<svg class="icon"><use href="#i-arrow"/></svg></a>
-<a class="media-fallback" href="assets/view.webm" hidden>Open the demo video directly</a>
+<a class="media-fallback" href="assets/view.webm?v=emerald-4s-1" hidden>Open the demo video directly</a>
 </div></div>
 </section>
 
