@@ -84,6 +84,58 @@
     ],{duration:700,delay,easing:'cubic-bezier(.16,1,.3,1)'}));
   });
 
+  const scenes = [
+    ['.hero', '.scene-image,.scene-video,.hero-upper,.hero-copy,.hero-bottom,#particle-field,.scene-corners'],
+    ['.showcase', 'iframe'],
+    ['.kit-separator', '.kit-ribbon,.kit-star'],
+    ['.workspace', '.workspace-heading,.feature-scroll-controls,.feature-slides'],
+    ['.system', '.system-title,.kit-formats,.system-console,.kit-station-row'],
+    ['.download', '.download-art,.scene-video,.download-heading,.download-content,.first-run'],
+    ['.site-footer', '.brand,span,.text-link']
+  ].map(([selector, parts]) => {
+    const scene = document.querySelector(selector);
+    scene.querySelectorAll(':scope > :is(' + parts + ')').forEach((part, index) => {
+      part.classList.add('scroll-motion-part');
+      part.style.setProperty('--scroll-motion-offset', String(Math.min(index, 3) * 5));
+    });
+    return scene;
+  });
+
+  const smooth = value => {
+    const clamped = Math.min(1, Math.max(0, value));
+    return clamped * clamped * (3 - 2 * clamped);
+  };
+  let scrollFrame = 0;
+  function updateScenes() {
+    scrollFrame = 0;
+    const enabled = !reduce.matches;
+    document.body.classList.toggle('scroll-motion-on', enabled);
+    if (!enabled) return;
+
+    const height = window.innerHeight;
+    const positions = scenes.map(scene => scene.getBoundingClientRect());
+    scenes.forEach((scene, index) => {
+      const { top, bottom } = positions[index];
+      const entering = smooth((top - height * .65) / (height * .35));
+      const leaving = 1 - smooth(bottom / (height * .42));
+      const amount = Math.max(entering, leaving);
+      scene.style.setProperty('--scroll-motion-amount', amount.toFixed(4));
+      scene.style.setProperty('--scroll-motion-travel', (entering - leaving).toFixed(4));
+    });
+  }
+  function scheduleScenes() {
+    if (!scrollFrame) scrollFrame = requestAnimationFrame(updateScenes);
+  }
+  window.addEventListener('scroll', scheduleScenes, { passive: true });
+  window.addEventListener('resize', scheduleScenes, { passive: true });
+  window.addEventListener('pageshow', scheduleScenes);
+  reduce.addEventListener('change', updateScenes);
+  if ('ResizeObserver' in window) {
+    const resizeScenes = new ResizeObserver(scheduleScenes);
+    scenes.forEach(scene => resizeScenes.observe(scene));
+  }
+  updateScenes();
+
   // Preserve native details semantics while showing the relationship to the summary.
   const transitions = new Map();
   function clearTransitions() {

@@ -29,3 +29,24 @@
 }
 @media(max-width:760px){.hero>.scene-video{object-position:62% center}.video-retry{right:20px;bottom:65px;font-size:10px}.background-control{min-height:40px}.download>.scene-video{object-position:60% center}}
 @media(prefers-reduced-motion:reduce){.scene-video{transform:none;transition:none}.motion-glint{display:none}}
+
+/* Scale the contents around each section while its layout stays in normal flow. */
+.feature-slides{position:relative}
+@media(prefers-reduced-motion:no-preference){
+  .scroll-motion-on .scroll-motion-part{
+    scale:calc(1 - var(--scroll-motion-amount, 0) * .13);
+    translate:0 calc(var(--scroll-motion-travel, 0) * (18px + var(--scroll-motion-offset, 0) * 1px));
+    filter:opacity(calc(1 - var(--scroll-motion-amount, 0) * .88));
+  }
+  .scroll-motion-on :focus-within > .scroll-motion-part:focus-within{
+    scale:none;
+    translate:none;
+    filter:none;
+  }
+  @media(max-width:760px){
+    .scroll-motion-on .scroll-motion-part{
+      scale:calc(1 - var(--scroll-motion-amount, 0) * .08);
+      translate:0 calc(var(--scroll-motion-travel, 0) * (10px + var(--scroll-motion-offset, 0) * 1px));
+    }
+  }
+}
