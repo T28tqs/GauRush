@@ -39,7 +39,24 @@
   const featureCount = originals.length;
   const videos = originals.map(slide => slide.querySelector('video'));
   const visibleVideos = new Set();
+  const autoplayButton = document.querySelector('#feature-autoplay');
   let currentFeature = 0;
+  let autoAdvance = !reduced.matches;
+  let carouselVisible = !('IntersectionObserver' in window);
+  let interacting = false;
+  let autoTimer;
+
+  function scheduleAdvance() {
+    clearTimeout(autoTimer);
+    if (!autoAdvance || !carouselVisible || interacting || document.hidden) return;
+    autoTimer = setTimeout(() => stepFeature(1), 6000);
+  }
+  function setAutoAdvance(enabled) {
+    autoAdvance = enabled;
+    autoplayButton.textContent = enabled ? 'Pause' : 'Play';
+    autoplayButton.setAttribute('aria-label', enabled ? 'Pause automatic slide advance' : 'Start automatic slide advance');
+    scheduleAdvance();
+  }
   controls.hidden = false;
 
   function updatePlayback() {
@@ -76,12 +93,14 @@
       currentFeature = feature;
       updatePlayback();
     }
+    scheduleAdvance();
   }
   function stepFeature(step) {
     settleScroll();
     scrollToCard(featureCount + currentFeature + step, reduced.matches ? 'instant' : 'smooth');
   }
   strip.addEventListener('scroll', () => {
+    clearTimeout(autoTimer);
     clearTimeout(scrollTimer);
     scrollTimer = setTimeout(settleScroll, 140);
   }, { passive: true });
@@ -92,10 +111,26 @@
     event.preventDefault();
     stepFeature(event.key === 'ArrowLeft' ? -1 : 1);
   });
-  controls.querySelectorAll('button').forEach(button => {
+  controls.querySelectorAll('[data-feature-step]').forEach(button => {
     button.addEventListener('click', () => stepFeature(Number(button.dataset.featureStep)));
   });
+  autoplayButton.addEventListener('click', () => setAutoAdvance(!autoAdvance));
+  strip.addEventListener('focusin', event => {
+    if (event.target !== strip) setAutoAdvance(false);
+  });
+  strip.addEventListener('pointerdown', () => {
+    interacting = true;
+    scheduleAdvance();
+  });
+  function endInteraction() {
+    if (!interacting) return;
+    interacting = false;
+    scheduleAdvance();
+  }
+  window.addEventListener('pointerup', endInteraction);
+  window.addEventListener('pointercancel', endInteraction);
   scrollToCard(featureCount);
+  setAutoAdvance(autoAdvance);
   if ('ResizeObserver' in window) {
     new ResizeObserver(() => scrollToCard(featureCount + currentFeature)).observe(strip);
   }
@@ -109,6 +144,10 @@
     });
   });
   if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => {
+      carouselVisible = entry.isIntersecting;
+      scheduleAdvance();
+    }).observe(strip);
     const observer = new IntersectionObserver(entries => {
       entries.forEach(({ target, intersectionRatio }) => {
         if (intersectionRatio >= .25) visibleVideos.add(target);
@@ -121,8 +160,14 @@
     videos.forEach(video => visibleVideos.add(video));
     updatePlayback();
   }
-  reduced.addEventListener('change', updatePlayback);
-  document.addEventListener('visibilitychange', updatePlayback);
+  reduced.addEventListener('change', () => {
+    if (reduced.matches) setAutoAdvance(false);
+    updatePlayback();
+  });
+  document.addEventListener('visibilitychange', () => {
+    updatePlayback();
+    scheduleAdvance();
+  });
 
   // One animation loop serves the illustrative point field, radial graph, and 3D study.
   const field = document.querySelector('#particle-field');
