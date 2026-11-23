@@ -10,9 +10,9 @@ h1 span,h2 span,.brand-period{color:inherit;background:none;-webkit-text-fill-co
 .workspace-heading h2{font-size:clamp(28px,3.15vw,48px);line-height:1.3}
 .system-title h2{font-size:clamp(26px,2.9vw,43px);line-height:1.3}
 .download h2{font-size:clamp(27px,3.1vw,46px);line-height:1.3}
-#workspace-panel h3{font-size:clamp(25px,2.7vw,39px);line-height:1.3}
-@media(min-width:1800px){.hero h1{font-size:69px}.workspace-heading h2{font-size:57px}.system-title h2,.download h2{font-size:55px}#workspace-panel h3{font-size:44px}}
-@media(max-width:760px){.hero h1{font-size:clamp(28px,6.5vw,44px)}.workspace-heading h2{font-size:clamp(25px,6.3vw,35px)}.system-title h2,.download h2{font-size:clamp(24px,5.4vw,36px)}#workspace-panel h3{font-size:32px}.brand{font-size:13px}}
+.workspace-panel h3{font-size:clamp(25px,2.7vw,39px);line-height:1.3}
+@media(min-width:1800px){.hero h1{font-size:69px}.workspace-heading h2{font-size:57px}.system-title h2,.download h2{font-size:55px}.workspace-panel h3{font-size:44px}}
+@media(max-width:760px){.hero h1{font-size:clamp(28px,6.5vw,44px)}.workspace-heading h2{font-size:clamp(25px,6.3vw,35px)}.system-title h2,.download h2{font-size:clamp(24px,5.4vw,36px)}.workspace-panel h3{font-size:32px}.brand{font-size:13px}}
 @media(max-width:380px){.hero h1{font-size:26px}.workspace-heading h2{font-size:27px}.system-title h2,.download h2{font-size:25px}}
 @media(forced-colors:active){h1,h2,h3,.brand>span{-webkit-text-fill-color:CanvasText;color:CanvasText;background:none}}
 /* Replace the old raster wordmark with the shared live brand. */
@@ -37,18 +37,16 @@ h1 span,h2 span,.brand-period{color:inherit;background:none;-webkit-text-fill-co
   color: inherit;
   cursor: pointer;
 }
-.media-strip.is-looping {
+.feature-slides {
   display: flex;
+  gap: 12px;
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
 }
-.media-strip.is-looping button {
-  flex: 0 0 clamp(180px, 32%, 360px);
+.feature-slides > .workbench {
+  flex: 0 0 100%;
   min-width: 0;
-  scroll-snap-align: center;
-}
-.media-strip.is-looping .feed-image {
-  display: block;
+  scroll-snap-align: start;
 }

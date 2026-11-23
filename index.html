@@ -9,13 +9,13 @@
 <link rel="icon" href="assets/gaurush-emerald.svg" type="image/svg+xml">
 <link rel="stylesheet" href="fonts.css">
 <link rel="stylesheet" href="scene.css">
-<link rel="stylesheet" href="retro.css?v=feature-loop-1">
-<link rel="stylesheet" href="chrome.css?v=feature-loop-1">
+<link rel="stylesheet" href="retro.css?v=feature-slides-2">
+<link rel="stylesheet" href="chrome.css?v=feature-slides-2">
 <link rel="stylesheet" href="kit-assets.css">
 <link rel="stylesheet" href="kit.css">
-<link rel="stylesheet" href="motion.css?v=feature-loop-1">
-<link rel="stylesheet" href="identity.css?v=feature-loop-1">
-<script src="retro.js?v=feature-loop-1" defer></script>
+<link rel="stylesheet" href="motion.css?v=feature-slides-2">
+<link rel="stylesheet" href="identity.css?v=feature-slides-2">
+<script src="retro.js?v=feature-slides-2" defer></script>
 <script src="kit.js" defer></script>
 <script src="background-media.js" defer></script>
 <script src="motion.js" defer></script>
@@ -96,24 +96,56 @@
 <button type="button" data-feature-step="1" aria-label="Next feature" aria-controls="feature-strip">→</button>
 </div>
 </div>
-<div class="media-strip" id="feature-strip" role="region" aria-label="GauRush features" aria-describedby="feature-scroll-help" tabindex="0">
-<button id="view-tab" aria-current="true" aria-controls="workspace-panel" tabindex="-1"><span class="motion-glint" aria-hidden="true"></span><span class="feed-title"><svg class="icon"><use href="#i-play"/></svg>VIEW &amp; PLAY<span class="feed-index">A</span></span><span class="feed-image"><img src="assets/view.jpg?v=emerald-4s-1" width="1280" height="800" alt="" loading="lazy"></span><span class="feed-caption">Inspect every frame<svg class="icon"><use href="#i-arrow"/></svg></span></button>
-<button id="crop-tab" aria-current="false" aria-controls="workspace-panel" tabindex="-1"><span class="motion-glint" aria-hidden="true"></span><span class="feed-title"><svg class="icon"><use href="#i-box"/></svg>CROP VOLUMES<span class="feed-index">B</span></span><span class="feed-image"><img src="assets/crop.jpg?v=emerald-4s-1" width="1280" height="800" alt="" loading="lazy"></span><span class="feed-caption">Keep what matters<svg class="icon"><use href="#i-arrow"/></svg></span></button>
-<button id="lasso-tab" aria-current="false" aria-controls="workspace-panel" tabindex="-1"><span class="motion-glint" aria-hidden="true"></span><span class="feed-title"><svg class="icon"><use href="#i-lasso"/></svg>LASSO CLEANUP<span class="feed-index">C</span></span><span class="feed-image"><img src="assets/lasso.jpg?v=emerald-4s-1" width="1280" height="800" alt="" loading="lazy"></span><span class="feed-caption">Remove the stray splats<svg class="icon"><use href="#i-arrow"/></svg></span></button>
-<button id="animate-tab" aria-current="false" aria-controls="workspace-panel" tabindex="-1"><span class="motion-glint" aria-hidden="true"></span><span class="feed-title"><svg class="icon"><use href="#i-key"/></svg>ANIMATE<span class="feed-index">D</span></span><span class="feed-image"><img src="assets/animate.jpg?v=emerald-4s-1" width="1280" height="800" alt="" loading="lazy"></span><span class="feed-caption">Follow the action<svg class="icon"><use href="#i-arrow"/></svg></span></button>
-</div>
-<div class="workbench">
-<div class="demo-screen"><div class="instrument-title"><span><span class="status-dot"></span> GAURUSH / APPLICATION FEED</span><span id="video-counter">VIEW &amp; PLAY</span></div>
-<video id="workspace-demo" src="assets/view.webm?v=emerald-4s-1" poster="assets/view.jpg?v=emerald-4s-1" controls autoplay muted loop playsinline preload="metadata" aria-label="GauRush playback demo using a synthetic splat capture"></video>
-<div class="demo-foot"><span>RECORDED IN GAURUSH / SYNTHETIC CAPTURE</span><span class="cyan" id="media-status">VIDEO READY</span></div></div>
-<div id="workspace-panel" aria-labelledby="feature-title">
+<div class="feature-slides" id="feature-strip" role="region" aria-label="GauRush features" aria-describedby="feature-scroll-help" tabindex="0">
+<article class="workbench" aria-label="VIEW &amp; PLAY">
+<div class="demo-screen"><div class="instrument-title"><span><span class="status-dot"></span> GAURUSH / APPLICATION FEED</span><span class="video-counter">VIEW &amp; PLAY</span></div>
+<video src="assets/view.webm?v=emerald-4s-1" poster="assets/view.jpg?v=emerald-4s-1" controls muted loop playsinline preload="none" aria-label="GauRush sequence playback demo using a synthetic splat capture"></video>
+<div class="demo-foot"><span>RECORDED IN GAURUSH / SYNTHETIC CAPTURE</span><span class="media-status cyan">VIDEO READY</span></div></div>
+<div class="workspace-panel">
 <div class="panel-heading"><span class="panel-label">VIEWPORT / PLAYBACK</span><svg class="icon"><use href="#i-plus"/></svg></div>
-<h3 id="feature-title">Inspect <br>every frame.</h3>
+<h3>Inspect <br>every frame.</h3>
 <p>Scrub the timeline and inspect a capture from different angles. Open a single Gaussian file, a folder of frames, or add multiple captures to your scene.</p>
 <ul class="workflow-details"><li>Orbit, pan, and zoom</li><li>Perspective &amp; orthographic views</li><li>Sequence playback &amp; frame scrubbing</li></ul>
 <a class="text-link" href="#features">Explore the toolset<svg class="icon"><use href="#i-arrow"/></svg></a>
 <a class="media-fallback" href="assets/view.webm?v=emerald-4s-1" hidden>Open the demo video directly</a>
-</div></div>
+</div></article>
+<article class="workbench" aria-label="CROP VOLUMES">
+<div class="demo-screen"><div class="instrument-title"><span><span class="status-dot"></span> GAURUSH / APPLICATION FEED</span><span class="video-counter">CROP VOLUMES</span></div>
+<video src="assets/crop.webm?v=emerald-4s-1" poster="assets/crop.jpg?v=emerald-4s-1" controls muted loop playsinline preload="none" aria-label="GauRush demo adding a fixed crop box to an animated splat sequence"></video>
+<div class="demo-foot"><span>RECORDED IN GAURUSH / SYNTHETIC CAPTURE</span><span class="media-status cyan">VIDEO READY</span></div></div>
+<div class="workspace-panel">
+<div class="panel-heading"><span class="panel-label">CLEANUP / CROP VOLUMES</span><svg class="icon"><use href="#i-plus"/></svg></div>
+<h3>Keep what <br>matters.</h3>
+<p>Add a fixed crop box while the Gaussian sequence plays. Preview the result across frames, and keep your crop volumes organized in the layer system.</p>
+<ul class="workflow-details"><li>Box, sphere, cylinder &amp; cone shapes</li><li>Move, rotate &amp; scale in the viewport</li><li>Toggle crop volumes in the layer system</li></ul>
+<a class="text-link" href="#features">Explore the toolset<svg class="icon"><use href="#i-arrow"/></svg></a>
+<a class="media-fallback" href="assets/crop.webm?v=emerald-4s-1" hidden>Open the demo video directly</a>
+</div></article>
+<article class="workbench" aria-label="LASSO CLEANUP">
+<div class="demo-screen"><div class="instrument-title"><span><span class="status-dot"></span> GAURUSH / APPLICATION FEED</span><span class="video-counter">LASSO CLEANUP</span></div>
+<video src="assets/lasso.webm?v=emerald-4s-1" poster="assets/lasso.jpg?v=emerald-4s-1" controls muted loop playsinline preload="none" aria-label="GauRush lasso cleanup demo showing selection and deletion of stray splats"></video>
+<div class="demo-foot"><span>RECORDED IN GAURUSH / SYNTHETIC CAPTURE</span><span class="media-status cyan">VIDEO READY</span></div></div>
+<div class="workspace-panel">
+<div class="panel-heading"><span class="panel-label">CLEANUP / LASSO SELECTION</span><svg class="icon"><use href="#i-plus"/></svg></div>
+<h3>A cleaner <br>capture.</h3>
+<p>Draw around unwanted splats directly in the viewport and delete the selection from the current frame. Refine the details a volume crop cannot reach.</p>
+<ul class="workflow-details"><li>Freehand selection in the viewport</li><li>Delete unwanted splats</li><li>Refine individual frames</li></ul>
+<a class="text-link" href="#features">Explore the toolset<svg class="icon"><use href="#i-arrow"/></svg></a>
+<a class="media-fallback" href="assets/lasso.webm?v=emerald-4s-1" hidden>Open the demo video directly</a>
+</div></article>
+<article class="workbench" aria-label="ANIMATE">
+<div class="demo-screen"><div class="instrument-title"><span><span class="status-dot"></span> GAURUSH / APPLICATION FEED</span><span class="video-counter">ANIMATE</span></div>
+<video src="assets/animate.webm?v=emerald-4s-1" poster="assets/animate.jpg?v=emerald-4s-1" controls muted loop playsinline preload="none" aria-label="GauRush crop animation and keyframe timeline demo"></video>
+<div class="demo-foot"><span>RECORDED IN GAURUSH / SYNTHETIC CAPTURE</span><span class="media-status cyan">VIDEO READY</span></div></div>
+<div class="workspace-panel">
+<div class="panel-heading"><span class="panel-label">ANIMATION / KEYFRAME TIMELINE</span><svg class="icon"><use href="#i-plus"/></svg></div>
+<h3>Follow <br>the action.</h3>
+<p>Animate crop position, rotation, and scale. Adjust timing and interpolation directly in the timeline to keep the crop with your moving capture.</p>
+<ul class="workflow-details"><li>Transform keyframes &amp; Auto Key</li><li>Select and retime multiple keyframes</li><li>Adjust interpolation in the timeline</li></ul>
+<a class="text-link" href="#features">Explore the toolset<svg class="icon"><use href="#i-arrow"/></svg></a>
+<a class="media-fallback" href="assets/animate.webm?v=emerald-4s-1" hidden>Open the demo video directly</a>
+</div></article>
+</div>
 </section>
 
 <section class="system" id="features" aria-labelledby="features-heading">
