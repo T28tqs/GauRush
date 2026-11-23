@@ -19,69 +19,46 @@
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !mobileNav.hidden) closeMenu(true); });
   matchMedia('(min-width: 761px)').addEventListener('change', e => { if (e.matches) closeMenu(); });
 
-  const features = [
-    { name:'VIEW & PLAY', label:'VIEWPORT / PLAYBACK', title:'Inspect <br>every frame.', description:'Scrub the timeline and inspect a capture from different angles. Open a single Gaussian file, a folder of frames, or add multiple captures to your scene.', details:['Orbit, pan, and zoom','Perspective & orthographic views','Sequence playback & frame scrubbing'], file:'view', aria:'GauRush sequence playback demo using a synthetic splat capture' },
-    { name:'CROP VOLUMES', label:'CLEANUP / CROP VOLUMES', title:'Keep what <br>matters.', description:'Add a fixed crop box while the Gaussian sequence plays. Preview the result across frames, and keep your crop volumes organized in the layer system.', details:['Box, sphere, cylinder & cone shapes','Move, rotate & scale in the viewport','Toggle crop volumes in the layer system'], file:'crop', aria:'GauRush demo adding a fixed crop box to an animated splat sequence' },
-    { name:'LASSO CLEANUP', label:'CLEANUP / LASSO SELECTION', title:'A cleaner <br>capture.', description:'Draw around unwanted splats directly in the viewport and delete the selection from the current frame. Refine the details a volume crop cannot reach.', details:['Freehand selection in the viewport','Delete unwanted splats','Refine individual frames'], file:'lasso', aria:'GauRush lasso cleanup demo showing selection and deletion of stray splats' },
-    { name:'ANIMATE', label:'ANIMATION / KEYFRAME TIMELINE', title:'Follow <br>the action.', description:'Animate crop position, rotation, and scale. Adjust timing and interpolation directly in the timeline to keep the crop with your moving capture.', details:['Transform keyframes & Auto Key','Select and retime multiple keyframes','Adjust interpolation in the timeline'], file:'animate', aria:'GauRush crop animation and keyframe timeline demo' }
-  ];
   const strip = document.querySelector('#feature-strip');
   const originals = [...strip.children];
+  const videos = originals.map(card => card.querySelector('video'));
   const controls = document.querySelector('.feature-scroll-controls');
+  const featureCount = originals.length;
+  let currentFeature = 0;
+  let videoVisible = false;
+
   function copyCards() {
     return originals.map(card => {
       const copy = card.cloneNode(true);
-      copy.removeAttribute('id');
+      copy.inert = true;
       copy.setAttribute('aria-hidden', 'true');
+      copy.querySelector('video').removeAttribute('src');
+      copy.querySelector('video').removeAttribute('controls');
       return copy;
     });
   }
   strip.prepend(...copyCards());
   strip.append(...copyCards());
   const cards = [...strip.children];
-  const featureCount = originals.length;
-  strip.classList.add('is-looping');
   controls.hidden = false;
-  const panel = document.querySelector('#workspace-panel');
-  const video = document.querySelector('#workspace-demo');
-  const mediaStatus = document.querySelector('#media-status');
-  const fallback = document.querySelector('.media-fallback');
-  let videoVisible = false, currentFeature = 0;
+
   function tryPlay() {
-    if (videoVisible && !reduced.matches && !document.hidden) video.play().catch(() => { mediaStatus.textContent = 'PRESS PLAY TO WATCH'; });
-  }
-  function selectFeature(index) {
-    const f = features[index];
-    currentFeature = index;
-    cards.forEach((card, i) => card.setAttribute('aria-current', String(i % featureCount === index)));
-    panel.querySelector('.panel-label').textContent = f.label;
-    panel.querySelector('h3').innerHTML = f.title;
-    panel.querySelector('p').textContent = f.description;
-    panel.querySelectorAll('.workflow-details li').forEach((li, i) => li.textContent = f.details[i]);
-    document.querySelector('#video-counter').textContent = f.name;
-    fallback.hidden = true;
-    fallback.href = 'assets/' + f.file + '.webm?v=emerald-4s-1';
-    panel.classList.remove('changing');
-    requestAnimationFrame(() => panel.classList.add('changing'));
-    if (video.getAttribute('src') !== 'assets/' + f.file + '.webm?v=emerald-4s-1') {
-      video.pause();
-      video.poster = 'assets/' + f.file + '.jpg?v=emerald-4s-1';
-      video.src = 'assets/' + f.file + '.webm?v=emerald-4s-1';
-      video.setAttribute('aria-label', f.aria);
-      mediaStatus.textContent = 'LOADING VIDEO';
-      video.load();
-      tryPlay();
+    if (videoVisible && !reduced.matches && !document.hidden) {
+      const index = currentFeature;
+      videos[index].play().catch(error => {
+        if (error.name === 'NotAllowedError') {
+          originals[index].querySelector('.media-status').textContent = 'PRESS PLAY TO WATCH';
+        }
+      });
     }
   }
   function cardPosition(card) {
     return strip.scrollLeft + card.getBoundingClientRect().left -
-      strip.getBoundingClientRect().left + (card.offsetWidth - strip.clientWidth) / 2;
+      strip.getBoundingClientRect().left;
   }
   function nearestCard() {
-    return cards.reduce((nearest, card, index) => {
-      return Math.abs(cardPosition(card) - strip.scrollLeft) <
-        Math.abs(cardPosition(cards[nearest]) - strip.scrollLeft) ? index : nearest;
-    }, 0);
+    const panelWidth = cardPosition(cards[1]) - cardPosition(cards[0]);
+    return Math.min(cards.length - 1, Math.max(0, Math.round(strip.scrollLeft / panelWidth)));
   }
   function scrollToCard(index, behavior = 'instant') {
     strip.scrollTo({ left: cardPosition(cards[index]), behavior });
@@ -94,7 +71,11 @@
     if (index < featureCount || index >= 2 * featureCount) {
       scrollToCard(featureCount + feature);
     }
-    if (feature !== currentFeature) selectFeature(feature);
+    if (feature !== currentFeature) {
+      videos[currentFeature].pause();
+      currentFeature = feature;
+      tryPlay();
+    }
   }
   function stepFeature(step) {
     settleScroll();
@@ -102,38 +83,48 @@
   }
   strip.addEventListener('scroll', () => {
     clearTimeout(scrollTimer);
-    scrollTimer = setTimeout(settleScroll, 140);
+    scrollTimer = setTimeout(settleScroll, 160);
   }, { passive: true });
   strip.addEventListener('scrollend', settleScroll);
   strip.addEventListener('keydown', event => {
-    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    if (event.target !== strip || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
     event.preventDefault();
     stepFeature(event.key === 'ArrowLeft' ? -1 : 1);
   });
   controls.querySelectorAll('button').forEach(button => {
     button.addEventListener('click', () => stepFeature(Number(button.dataset.featureStep)));
   });
-  cards.forEach((card, index) => {
-    card.addEventListener('click', () => {
-      if (card.getAttribute('aria-hidden') === 'true') strip.focus({ preventScroll: true });
-      scrollToCard(index, reduced.matches ? 'instant' : 'smooth');
+  document.querySelectorAll('[data-kit-workflow]').forEach(link => {
+    link.addEventListener('click', () => {
+      const index = originals.findIndex(card => card.dataset.feature === link.dataset.kitWorkflow);
+      if (index !== -1) {
+        scrollToCard(featureCount + index);
+        settleScroll();
+      }
     });
   });
   scrollToCard(featureCount);
   if ('ResizeObserver' in window) {
     new ResizeObserver(() => scrollToCard(featureCount + currentFeature)).observe(strip);
   }
-  video.addEventListener('playing', () => { mediaStatus.textContent = 'PLAYING / MUTED'; });
-  video.addEventListener('pause', () => { mediaStatus.textContent = 'VIDEO PAUSED'; });
-  video.addEventListener('loadeddata', () => { mediaStatus.textContent = 'VIDEO READY'; tryPlay(); });
-  video.addEventListener('error', () => { mediaStatus.textContent = 'VIDEO UNAVAILABLE'; fallback.hidden = false; });
+  videos.forEach((video, index) => {
+    const status = originals[index].querySelector('.media-status');
+    video.addEventListener('playing', () => { status.textContent = 'PLAYING / MUTED'; });
+    video.addEventListener('pause', () => { status.textContent = 'VIDEO PAUSED'; });
+    video.addEventListener('error', () => {
+      status.textContent = 'VIDEO UNAVAILABLE';
+      originals[index].querySelector('.media-fallback').hidden = false;
+    });
+  });
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(([entry]) => {
       videoVisible = entry.isIntersecting;
-      if (videoVisible) tryPlay(); else video.pause();
-    }, {threshold:.25}).observe(video);
+      if (videoVisible) tryPlay(); else videos[currentFeature].pause();
+    }, {threshold:.15}).observe(strip);
   } else { videoVisible = true; tryPlay(); }
-  reduced.addEventListener('change', () => { if (reduced.matches) video.pause(); else tryPlay(); });
+  reduced.addEventListener('change', () => {
+    if (reduced.matches) videos[currentFeature].pause(); else tryPlay();
+  });
 
   // One animation loop serves the illustrative point field, radial graph, and 3D study.
   const field = document.querySelector('#particle-field');
@@ -224,12 +215,12 @@
   study.addEventListener('pointercancel',()=>{drag=null;});
   study.addEventListener('lostpointercapture',()=>{drag=null;});
   reduced.addEventListener('change',()=>{running=!reduced.matches;updateMotion();scrollMotion();});
-  document.addEventListener('visibilitychange',()=>{if(document.hidden){video.pause();last=0;}else{schedule();tryPlay();}});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden){videos[currentFeature].pause();last=0;}else{schedule();tryPlay();}});
   if('IntersectionObserver' in window)new IntersectionObserver(([entry])=>{heroVisible=entry.isIntersecting;if(heroVisible)schedule();},{threshold:0}).observe(hero);
   if('ResizeObserver' in window)new ResizeObserver(resize).observe(hero);else addEventListener('resize',resize,{passive:true});
   resize();updateMotion();
 
-  const revealNodes=[...document.querySelectorAll('.workspace-heading,.media-strip,.workbench,.system-title,.system-console,.download-heading,.download-content')];
+  const revealNodes=[...document.querySelectorAll('.workspace-heading,.media-strip,.system-title,.system-console,.download-heading,.download-content')];
   if('IntersectionObserver' in window&&!reduced.matches) {
     const reveal=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.remove('waiting');reveal.unobserve(entry.target);}}),{threshold:.08});
     revealNodes.forEach(el=>{el.classList.add('reveal','waiting');reveal.observe(el);});
