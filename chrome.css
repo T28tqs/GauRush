@@ -37,11 +37,11 @@ h1 span,h2 span{color:inherit;-webkit-text-fill-color:inherit}
 .media-strip{gap:9px;margin-bottom:9px}
 .media-strip button{background:linear-gradient(140deg,#141d22,#070b0f 55%);padding:7px}
 .media-strip button::after{inset:6px}
-.media-strip button[aria-selected=true]::before{background:linear-gradient(140deg,#efffff,#7dd7df 22%,#dce9ef 43%,#f4b879 76%,#dee8eb)}
+.media-strip button[aria-current=true]::before{background:linear-gradient(140deg,#efffff,#7dd7df 22%,#dce9ef 43%,#f4b879 76%,#dee8eb)}
 .media-strip button:hover::before{background:linear-gradient(140deg,#fff,#8ed5df 55%,#fff)}
 .feed-title{font-family:var(--display);font-weight:500;font-size:9px;letter-spacing:.015em;border-color:#5d6a735c;padding:10px 8px;color:#dce4e8}
-.media-strip button[aria-selected=true] .feed-title{color:#10171c;background:linear-gradient(120deg,#e6ecf1,#acbac4 55%,#eff5f8);border-color:transparent}
-.media-strip button[aria-selected=true] .feed-index{color:#10171c}
+.media-strip button[aria-current=true] .feed-title{color:#10171c;background:linear-gradient(120deg,#e6ecf1,#acbac4 55%,#eff5f8);border-color:transparent}
+.media-strip button[aria-current=true] .feed-index{color:#10171c}
 .feed-caption{padding:10px 8px;font-size:10px}
 .feed-index{font-family:var(--mono);color:#b3c3cc}
 .feed-image{margin-top:5px}

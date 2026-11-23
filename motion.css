@@ -11,7 +11,7 @@
 .media-strip button,.download-button{overflow:hidden}
 .motion-glint{position:absolute;inset:0;pointer-events:none;z-index:4;background:linear-gradient(112deg,transparent 30%,#ecfaff00 40%,#f0faff3b 48%,#ffffff08 54%,transparent 65%);transform:translateX(-130%);mix-blend-mode:screen}
 @media(prefers-reduced-motion:no-preference){
-.media-strip button:hover .motion-glint,.media-strip button:focus-visible .motion-glint,.media-strip button[aria-selected=true] .motion-glint,.download-button:hover .motion-glint,.download-button:focus-visible .motion-glint{animation:metal-pass .85s cubic-bezier(.16,1,.3,1) both}
+.media-strip button:hover .motion-glint,.media-strip button:focus-visible .motion-glint,.media-strip button[aria-current=true] .motion-glint,.download-button:hover .motion-glint,.download-button:focus-visible .motion-glint{animation:metal-pass .85s cubic-bezier(.16,1,.3,1) both}
 @keyframes metal-pass{from{transform:translateX(-130%)}to{transform:translateX(130%)}}
 .kit-separator.motion-live .kit-ribbon{animation:chrome-tide 9s ease-in-out infinite}
 .kit-separator.motion-live .kit-star{animation:star-signal 5.5s ease-in-out infinite}

@@ -25,7 +25,23 @@
     { name:'LASSO CLEANUP', label:'CLEANUP / LASSO SELECTION', title:'A cleaner <br>capture.', description:'Draw around unwanted splats directly in the viewport and delete the selection from the current frame. Refine the details a volume crop cannot reach.', details:['Freehand selection in the viewport','Delete unwanted splats','Refine individual frames'], file:'lasso', aria:'GauRush lasso cleanup demo showing selection and deletion of stray splats' },
     { name:'ANIMATE', label:'ANIMATION / KEYFRAME TIMELINE', title:'Follow <br>the action.', description:'Animate crop position, rotation, and scale. Adjust timing and interpolation directly in the timeline to keep the crop with your moving capture.', details:['Transform keyframes & Auto Key','Select and retime multiple keyframes','Adjust interpolation in the timeline'], file:'animate', aria:'GauRush crop animation and keyframe timeline demo' }
   ];
-  const tabs = [...document.querySelectorAll('.media-strip [role="tab"]')];
+  const strip = document.querySelector('#feature-strip');
+  const originals = [...strip.children];
+  const controls = document.querySelector('.feature-scroll-controls');
+  function copyCards() {
+    return originals.map(card => {
+      const copy = card.cloneNode(true);
+      copy.removeAttribute('id');
+      copy.setAttribute('aria-hidden', 'true');
+      return copy;
+    });
+  }
+  strip.prepend(...copyCards());
+  strip.append(...copyCards());
+  const cards = [...strip.children];
+  const featureCount = originals.length;
+  strip.classList.add('is-looping');
+  controls.hidden = false;
   const panel = document.querySelector('#workspace-panel');
   const video = document.querySelector('#workspace-demo');
   const mediaStatus = document.querySelector('#media-status');
@@ -37,8 +53,7 @@
   function selectFeature(index) {
     const f = features[index];
     currentFeature = index;
-    tabs.forEach((tab, i) => { tab.setAttribute('aria-selected', String(i === index)); tab.tabIndex = i === index ? 0 : -1; });
-    panel.setAttribute('aria-labelledby', tabs[index].id);
+    cards.forEach((card, i) => card.setAttribute('aria-current', String(i % featureCount === index)));
     panel.querySelector('.panel-label').textContent = f.label;
     panel.querySelector('h3').innerHTML = f.title;
     panel.querySelector('p').textContent = f.description;
@@ -58,16 +73,56 @@
       tryPlay();
     }
   }
-  tabs.forEach((tab, i) => {
-    tab.addEventListener('click', () => selectFeature(i));
-    tab.addEventListener('keydown', e => {
-      const directions = { ArrowLeft:i-1, ArrowRight:i+1, ArrowUp:i-1, ArrowDown:i+1, Home:0, End:tabs.length-1 };
-      if (!(e.key in directions)) return;
-      e.preventDefault();
-      const next = (directions[e.key] + tabs.length) % tabs.length;
-      selectFeature(next); tabs[next].focus();
+  function cardPosition(card) {
+    return strip.scrollLeft + card.getBoundingClientRect().left -
+      strip.getBoundingClientRect().left + (card.offsetWidth - strip.clientWidth) / 2;
+  }
+  function nearestCard() {
+    return cards.reduce((nearest, card, index) => {
+      return Math.abs(cardPosition(card) - strip.scrollLeft) <
+        Math.abs(cardPosition(cards[nearest]) - strip.scrollLeft) ? index : nearest;
+    }, 0);
+  }
+  function scrollToCard(index, behavior = 'instant') {
+    strip.scrollTo({ left: cardPosition(cards[index]), behavior });
+  }
+  let scrollTimer;
+  function settleScroll() {
+    clearTimeout(scrollTimer);
+    const index = nearestCard();
+    const feature = index % featureCount;
+    if (index < featureCount || index >= 2 * featureCount) {
+      scrollToCard(featureCount + feature);
+    }
+    if (feature !== currentFeature) selectFeature(feature);
+  }
+  function stepFeature(step) {
+    settleScroll();
+    scrollToCard(featureCount + currentFeature + step, reduced.matches ? 'instant' : 'smooth');
+  }
+  strip.addEventListener('scroll', () => {
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(settleScroll, 140);
+  }, { passive: true });
+  strip.addEventListener('scrollend', settleScroll);
+  strip.addEventListener('keydown', event => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    event.preventDefault();
+    stepFeature(event.key === 'ArrowLeft' ? -1 : 1);
+  });
+  controls.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', () => stepFeature(Number(button.dataset.featureStep)));
+  });
+  cards.forEach((card, index) => {
+    card.addEventListener('click', () => {
+      if (card.getAttribute('aria-hidden') === 'true') strip.focus({ preventScroll: true });
+      scrollToCard(index, reduced.matches ? 'instant' : 'smooth');
     });
   });
+  scrollToCard(featureCount);
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(() => scrollToCard(featureCount + currentFeature)).observe(strip);
+  }
   video.addEventListener('playing', () => { mediaStatus.textContent = 'PLAYING / MUTED'; });
   video.addEventListener('pause', () => { mediaStatus.textContent = 'VIDEO PAUSED'; });
   video.addEventListener('loadeddata', () => { mediaStatus.textContent = 'VIDEO READY'; tryPlay(); });

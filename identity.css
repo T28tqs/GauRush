@@ -17,3 +17,38 @@ h1 span,h2 span,.brand-period{color:inherit;background:none;-webkit-text-fill-co
 @media(forced-colors:active){h1,h2,h3,.brand>span{-webkit-text-fill-color:CanvasText;color:CanvasText;background:none}}
 /* Replace the old raster wordmark with the shared live brand. */
 .kit-wordmark{background:none!important;display:flex;align-items:center;justify-content:center;gap:16px;aspect-ratio:3.2;min-height:110px}.kit-wordmark img{width:64px;height:64px;flex:none}.kit-wordmark span{font-family:Michroma,sans-serif;font-size:clamp(22px,2.6vw,42px);font-weight:400;background:var(--chrome);background-clip:text;-webkit-background-clip:text;color:#d4f0df;-webkit-text-fill-color:transparent}@media(max-width:1000px){.kit-wordmark{display:none}}
+.feature-scroll-controls:not([hidden]) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  font: 11px var(--mono);
+}
+.feature-scroll-controls > div {
+  display: flex;
+  gap: 8px;
+}
+.feature-scroll-controls button {
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.media-strip.is-looping {
+  display: flex;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.media-strip.is-looping button {
+  flex: 0 0 clamp(180px, 32%, 360px);
+  min-width: 0;
+  scroll-snap-align: center;
+}
+.media-strip.is-looping .feed-image {
+  display: block;
+}
