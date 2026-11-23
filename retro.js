@@ -297,7 +297,7 @@
   study.addEventListener('pointercancel',()=>{drag=null;});
   study.addEventListener('lostpointercapture',()=>{drag=null;});
   reduced.addEventListener('change',()=>{running=!reduced.matches;updateMotion();scrollMotion();});
-  document.addEventListener('visibilitychange',()=>{if(document.hidden){video.pause();last=0;}else{schedule();tryPlay();}});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden){last=0;}else{schedule();}});
   if('IntersectionObserver' in window)new IntersectionObserver(([entry])=>{heroVisible=entry.isIntersecting;if(heroVisible)schedule();},{threshold:0}).observe(hero);
   if('ResizeObserver' in window)new ResizeObserver(resize).observe(hero);else addEventListener('resize',resize,{passive:true});
   resize();updateMotion();
