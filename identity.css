@@ -42,11 +42,9 @@ h1 span,h2 span,.brand-period{color:inherit;background:none;-webkit-text-fill-co
   gap: 12px;
   overflow-x: auto;
   overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
   scrollbar-width: none;
 }
 .feature-slides > .workbench {
   flex: 0 0 100%;
   min-width: 0;
-  scroll-snap-align: start;
 }

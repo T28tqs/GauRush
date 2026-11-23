@@ -44,18 +44,38 @@
   let autoAdvance = !reduced.matches;
   let carouselVisible = !('IntersectionObserver' in window);
   let interacting = false;
-  let autoTimer;
+  let glideFrame = 0;
+  let glidePosition = 0;
+  let previousTime = 0;
+  let resumeTimer;
 
-  function scheduleAdvance() {
-    clearTimeout(autoTimer);
-    if (!autoAdvance || !carouselVisible || interacting || document.hidden) return;
-    autoTimer = setTimeout(() => stepFeature(1), 6000);
+  function stopGlide() {
+    cancelAnimationFrame(glideFrame);
+    glideFrame = 0;
+  }
+  function glide(time) {
+    if (previousTime) {
+      const speed = Math.max(24, Math.min(64, strip.clientWidth / 18));
+      glidePosition += speed * Math.min(time - previousTime, 40) / 1000;
+      glidePosition = wrapPosition(glidePosition);
+      strip.scrollLeft = glidePosition;
+      updateCurrentSlide();
+    }
+    previousTime = time;
+    glideFrame = requestAnimationFrame(glide);
+  }
+  function startGlide() {
+    if (glideFrame || !autoAdvance || !carouselVisible || interacting || resumeTimer || document.hidden) return;
+    glidePosition = strip.scrollLeft;
+    previousTime = 0;
+    glideFrame = requestAnimationFrame(glide);
   }
   function setAutoAdvance(enabled) {
     autoAdvance = enabled;
     autoplayButton.textContent = enabled ? 'Pause' : 'Play';
-    autoplayButton.setAttribute('aria-label', enabled ? 'Pause automatic slide advance' : 'Start automatic slide advance');
-    scheduleAdvance();
+    autoplayButton.setAttribute('aria-label', enabled ? 'Pause automatic scrolling' : 'Start automatic scrolling');
+    if (enabled) startGlide();
+    else stopGlide();
   }
   controls.hidden = false;
 
@@ -72,39 +92,54 @@
     return strip.scrollLeft + card.getBoundingClientRect().left -
       strip.getBoundingClientRect().left + (card.offsetWidth - strip.clientWidth) / 2;
   }
-  function nearestCard() {
-    return cards.reduce((nearest, card, index) => {
-      return Math.abs(cardPosition(card) - strip.scrollLeft) <
-        Math.abs(cardPosition(cards[nearest]) - strip.scrollLeft) ? index : nearest;
-    }, 0);
+  function wrapPosition(position) {
+    const start = cardPosition(cards[featureCount]);
+    const end = cardPosition(cards[2 * featureCount]);
+    const distance = end - start;
+    if (distance <= 0 || (position >= start && position < end)) return position;
+    return start + ((position - start) % distance + distance) % distance;
+  }
+  function updateCurrentSlide() {
+    const first = cardPosition(cards[0]);
+    const spacing = cardPosition(cards[1]) - first;
+    if (spacing <= 0) return;
+    const index = Math.round((strip.scrollLeft - first) / spacing);
+    const feature = index % featureCount;
+    if (feature === currentFeature) return;
+    currentFeature = feature;
+    updatePlayback();
   }
   function scrollToCard(index, behavior = 'instant') {
     strip.scrollTo({ left: cardPosition(cards[index]), behavior });
   }
-  let scrollTimer;
-  function settleScroll() {
-    clearTimeout(scrollTimer);
-    const index = nearestCard();
-    const feature = index % featureCount;
-    if (index < featureCount || index >= 2 * featureCount) {
-      scrollToCard(featureCount + feature);
-    }
-    if (feature !== currentFeature) {
-      currentFeature = feature;
-      updatePlayback();
-    }
-    scheduleAdvance();
+  function resumeAfterScroll() {
+    clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(() => {
+      resumeTimer = 0;
+      if (interacting) return;
+      strip.scrollLeft = wrapPosition(strip.scrollLeft);
+      updateCurrentSlide();
+      startGlide();
+    }, 700);
+  }
+  function interruptGlide() {
+    stopGlide();
+    resumeAfterScroll();
   }
   function stepFeature(step) {
-    settleScroll();
+    interruptGlide();
+    strip.scrollLeft = wrapPosition(strip.scrollLeft);
+    updateCurrentSlide();
     scrollToCard(featureCount + currentFeature + step, reduced.matches ? 'instant' : 'smooth');
   }
   strip.addEventListener('scroll', () => {
-    clearTimeout(autoTimer);
-    clearTimeout(scrollTimer);
-    scrollTimer = setTimeout(settleScroll, 140);
+    if (glideFrame) return;
+    updateCurrentSlide();
+    resumeAfterScroll();
   }, { passive: true });
-  strip.addEventListener('scrollend', settleScroll);
+  strip.addEventListener('wheel', event => {
+    if (event.deltaX || event.shiftKey) interruptGlide();
+  }, { passive: true });
   strip.addEventListener('keydown', event => {
     if (event.target !== strip) return;
     if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
@@ -120,19 +155,22 @@
   });
   strip.addEventListener('pointerdown', () => {
     interacting = true;
-    scheduleAdvance();
+    interruptGlide();
   });
   function endInteraction() {
     if (!interacting) return;
     interacting = false;
-    scheduleAdvance();
+    resumeAfterScroll();
   }
   window.addEventListener('pointerup', endInteraction);
   window.addEventListener('pointercancel', endInteraction);
   scrollToCard(featureCount);
   setAutoAdvance(autoAdvance);
   if ('ResizeObserver' in window) {
-    new ResizeObserver(() => scrollToCard(featureCount + currentFeature)).observe(strip);
+    new ResizeObserver(() => {
+      scrollToCard(featureCount + currentFeature);
+      glidePosition = strip.scrollLeft;
+    }).observe(strip);
   }
   videos.forEach((video, index) => {
     const status = originals[index].querySelector('.media-status');
@@ -146,7 +184,8 @@
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(([entry]) => {
       carouselVisible = entry.isIntersecting;
-      scheduleAdvance();
+      if (carouselVisible) startGlide();
+      else stopGlide();
     }).observe(strip);
     const observer = new IntersectionObserver(entries => {
       entries.forEach(({ target, intersectionRatio }) => {
@@ -166,7 +205,8 @@
   });
   document.addEventListener('visibilitychange', () => {
     updatePlayback();
-    scheduleAdvance();
+    if (document.hidden) stopGlide();
+    else startGlide();
   });
 
   // One animation loop serves the illustrative point field, radial graph, and 3D study.
