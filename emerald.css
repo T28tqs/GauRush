@@ -221,7 +221,7 @@ body {
 }
 
 .system-title { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; gap: 14px; }
-.system-title .system-description { display: block; margin: 0; max-width: 58ch; }
+.system-title .system-description { display: block; justify-self: center; margin: 0 auto; width: min(100%, 58ch); text-align: center; }
 .system-title .system-description p { margin: 0; }
 .map-core { z-index: 2; }
 .map-core-graphic { position: relative; }
