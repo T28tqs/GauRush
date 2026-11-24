@@ -90,6 +90,7 @@
     ['.kit-separator', '.kit-ribbon,.kit-star'],
     ['.workspace', '.workspace-heading,.feature-scroll-controls,.feature-slides'],
     ['.system', '.system-title,.kit-formats,.system-console,.kit-station-row'],
+    ['.compatibility', 'h2,.compatibility-grid'],
     ['.download', '.download-art,.scene-video,.download-heading,.download-content,.first-run'],
     ['.site-footer', '.brand,span,.text-link']
   ].map(([selector, parts]) => {
@@ -116,8 +117,8 @@
     const positions = scenes.map(scene => scene.getBoundingClientRect());
     scenes.forEach((scene, index) => {
       const { top, bottom } = positions[index];
-      const entering = smooth((top - height * .65) / (height * .35));
-      const leaving = 1 - smooth(bottom / (height * .42));
+      const entering = smooth((top - height * .72) / (height * .28));
+      const leaving = 1 - smooth(bottom / (height * .28));
       const amount = Math.max(entering, leaving);
       scene.style.setProperty('--scroll-motion-amount', amount.toFixed(4));
       scene.style.setProperty('--scroll-motion-travel', (entering - leaving).toFixed(4));

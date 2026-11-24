@@ -34,19 +34,66 @@
 .feature-slides{position:relative}
 @media(prefers-reduced-motion:no-preference){
   .scroll-motion-on .scroll-motion-part{
-    scale:calc(1 - var(--scroll-motion-amount, 0) * .13);
+    scale:calc(1 - var(--scroll-motion-amount, 0) * var(--scroll-scale, .13));
     translate:0 calc(var(--scroll-motion-travel, 0) * (18px + var(--scroll-motion-offset, 0) * 1px));
-    filter:opacity(calc(1 - var(--scroll-motion-amount, 0) * .88));
+    filter:opacity(calc(1 - var(--scroll-motion-amount, 0) * var(--scroll-fade, .88)));
   }
-  .scroll-motion-on :focus-within > .scroll-motion-part:focus-within{
+  .scroll-motion-on :is(.hero-copy,.workspace-heading,.feature-scroll-controls,.system-title,.compatibility-grid,.download-heading,.download-content){
+    --scroll-scale:.04;
+    --scroll-fade:.32;
+  }
+  .scroll-motion-on .scroll-motion-part:focus-within{
     scale:none;
     translate:none;
     filter:none;
   }
   @media(max-width:760px){
     .scroll-motion-on .scroll-motion-part{
-      scale:calc(1 - var(--scroll-motion-amount, 0) * .08);
+      --scroll-scale:.08;
       translate:0 calc(var(--scroll-motion-travel, 0) * (10px + var(--scroll-motion-offset, 0) * 1px));
     }
   }
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.hero-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 9px 14px;
+  border: 1px solid var(--cyan);
+  background: #061013;
+  color: var(--ivory);
+  font: 600 12px var(--mono);
+}
+.hero-action .icon { width: 16px; height: 16px; }
+.hero-download { background: var(--cyan); color: #061013; }
+.hero-action:hover { border-color: var(--amber); }
+.hero-download:hover { background: var(--amber); }
+.showcase { scroll-margin-top: 76px; }
+
+.compatibility {
+  margin: 0 clamp(14px, 3vw, 42px) 32px;
+  padding: clamp(16px, 2.5vw, 32px);
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+.compatibility h2 { margin: 0 0 16px; font: 600 14px var(--display); }
+.compatibility-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0;
+}
+.compatibility-grid > div { border-top: 1px solid var(--line); padding-top: 10px; }
+.compatibility-grid dt { color: var(--cyan); font: 600 12px var(--mono); }
+.compatibility-grid dd { margin: 5px 0 0; font-size: 13px; line-height: 1.45; }
+
+@media(max-width:600px) {
+  .compatibility-grid { grid-template-columns: 1fr; gap: 10px; }
 }
