@@ -8,12 +8,15 @@
   const particles = document.createElement('div');
   particles.className = 'map-particles';
   particles.setAttribute('aria-hidden', 'true');
-  for (let index = 0; index < 30; index++) {
+  for (let index = 0; index < 110; index++) {
     const particle = document.createElement('i');
-    particle.style.setProperty('--x', (index * 137.508) % 100 + '%');
-    particle.style.setProperty('--y', (index * 37.31) % 100 + '%');
-    particle.style.setProperty('--delay', -(index % 13) + 's');
-    particle.style.setProperty('--duration', 7 + index % 9 + 's');
+    const duration = 6 + Math.random() * 12;
+    particle.style.setProperty('--x', Math.random() * 100 + '%');
+    particle.style.setProperty('--y', Math.random() * 100 + '%');
+    particle.style.setProperty('--size', 1 + Math.random() * 2 + 'px');
+    particle.style.setProperty('--delay', -Math.random() * duration * 2 + 's');
+    particle.style.setProperty('--duration', duration + 's');
+    particle.style.setProperty('--drift-x', (Math.random() - .5) * 95 + 'px');
     particles.append(particle);
   }
   map.prepend(particles);
