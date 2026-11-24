@@ -293,3 +293,16 @@ body {
     to { translate: var(--drift-x) -52px; opacity: .72; }
   }
 }
+
+.workspace {
+  --workspace-gutter: clamp(14px, 4vw, 80px);
+  padding-inline: 0;
+}
+.workspace > :is(.workspace-heading, .feature-scroll-controls) {
+  margin-inline: var(--workspace-gutter);
+}
+.workspace > .feature-slides {
+  width: 100%;
+  min-width: 0;
+  scale: none;
+}
