@@ -49,7 +49,7 @@
   display: flow-root;
   background: #04100c;
   min-height: calc(100svh - 58px);
-  transform-origin: center bottom;
+  transform-origin: center 78%;
   transform: perspective(1300px) translateY(var(--journey-lift, 0px)) rotateX(var(--journey-tilt, 0deg));
   filter: blur(var(--journey-blur, 0px)) brightness(var(--journey-light, 1));
   opacity: var(--journey-opacity, 1);
