@@ -89,7 +89,7 @@
     ['.showcase', 'iframe'],
     ['.kit-separator', '.kit-ribbon,.kit-star'],
     ['.workspace', '.workspace-heading,.feature-scroll-controls,.feature-slides'],
-    ['.system', '.system-title,.kit-formats,.system-console,.kit-station-row'],
+    ['.system', '.system-title,.workflow-map,.map-note'],
     ['.compatibility', 'h2,.compatibility-grid'],
     ['.download', '.download-art,.scene-video,.download-heading,.download-content,.first-run'],
     ['.site-footer', '.brand,span,.text-link']
@@ -137,31 +137,10 @@
   }
   updateScenes();
 
-  // Preserve native details semantics while showing the relationship to the summary.
-  const transitions = new Map();
-  function clearTransitions() {
-    startup.forEach(a=>a.finish()); startup=[];
-    transitions.forEach((state,details)=>{
-      state.animation.cancel();details.open=state.targetOpen;details.style.overflow='';
-    });transitions.clear();
-  }
-  document.querySelectorAll('.tool-inventory details').forEach(details => {
-    const summary = details.querySelector('summary');
-    summary.addEventListener('click',event=>{
-      if (reduce.matches || !details.animate) return;
-      event.preventDefault();
-      const previous=transitions.get(details);
-      const targetOpen=!(previous?previous.targetOpen:details.open);
-      const from=details.getBoundingClientRect().height;
-      previous?.animation.cancel();
-      details.open=true;
-      const to=targetOpen?details.scrollHeight:summary.getBoundingClientRect().height+1;
-      details.style.overflow='hidden';
-      const animation=details.animate([{height:from+'px'},{height:to+'px'}],{duration:300,easing:'cubic-bezier(.16,1,.3,1)'});
-      transitions.set(details,{targetOpen,animation});
-      animation.onfinish=()=>{details.open=targetOpen;details.style.overflow='';transitions.delete(details);};
-    });
+  reduce.addEventListener('change', () => {
+    if (reduce.matches) startup.forEach(animation => animation.finish());
   });
-  reduce.addEventListener('change',()=>{if(reduce.matches)clearTransitions();});
-  if (master) new MutationObserver(()=>{if(!motionOn())clearTransitions();}).observe(master,{attributes:true,attributeFilter:['aria-pressed']});
+  if (master) new MutationObserver(() => {
+    if (!motionOn()) startup.forEach(animation => animation.finish());
+  }).observe(master, { attributes: true, attributeFilter: ['aria-pressed'] });
 })();
