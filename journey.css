@@ -1,3 +1,5 @@
+html, body { overflow-x: clip; }
+
 .journey-intro {
   min-height: 100svh;
   position: relative;
@@ -34,37 +36,10 @@
   text-shadow: 0 0 26px #5fffa460;
 }
 .journey-brand img { width: clamp(74px, 15vw, 112px); height: auto; }
-.journey-active .site-header { position: sticky; }
-.journey-active .site-header:has(+ main .journey-intro) {
-  opacity: var(--journey-header, 1);
-  pointer-events: var(--journey-header-events, auto);
-}
-.journey-active .site-header:focus-within { opacity: 1; pointer-events: auto; }
-.journey-stage { position: relative; z-index: var(--journey-layer); }
-.journey-active .journey-stage:not(:last-child) { padding-bottom: var(--journey-overlap, 0px); }
-.journey-active .journey-stage + .journey-stage { margin-top: calc(0px - var(--journey-overlap, 0px)); }
-.journey-active .journey-card {
-  position: sticky;
-  top: var(--journey-pin, 0px);
-  display: flow-root;
-  background: #04100c;
-  min-height: calc(100svh - 58px);
-  transform-origin: center 78%;
-  transform: perspective(1300px) translateY(var(--journey-lift, 0px)) rotateX(var(--journey-tilt, 0deg));
-  filter: blur(var(--journey-blur, 0px)) brightness(var(--journey-light, 1));
-  opacity: var(--journey-opacity, 1);
-  pointer-events: var(--journey-events, auto);
-}
-.journey-active .journey-card:focus-within { pointer-events: auto; }
-.journey-active .journey-card > section { scroll-margin-top: 72px; }
 @media(prefers-reduced-motion:no-preference) {
   .journey-intro-light { animation: journey-shimmer 16s ease-in-out infinite alternate; }
   @keyframes journey-shimmer {
     from { transform: translate(-5%, 3%) rotate(-11deg); }
     to { transform: translate(7%, -4%) rotate(14deg) scale(1.12); }
   }
-}
-.journey-active #main { margin-top: -58px; }
-@media(max-width:760px) {
-  .journey-active #main { margin-top: -56px; }
 }
