@@ -220,7 +220,7 @@ body {
   .map-node::before { content: ""; position: absolute; width: 13px; height: 1px; left: -15px; top: 50%; background: #4cdc93; }
 }
 
-.system-title { display: grid; justify-items: center; text-align: center; gap: 14px; }
+.system-title { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; gap: 14px; }
 .system-title .system-description { display: block; margin: 0; max-width: 58ch; }
 .system-title .system-description p { margin: 0; }
 .map-core { z-index: 2; }
