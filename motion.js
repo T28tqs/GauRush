@@ -109,7 +109,7 @@
   let scrollFrame = 0;
   function updateScenes() {
     scrollFrame = 0;
-    const enabled = !reduce.matches;
+    const enabled = !reduce.matches && !document.body.classList.contains('journey-active');
     document.body.classList.toggle('scroll-motion-on', enabled);
     if (!enabled) return;
 
