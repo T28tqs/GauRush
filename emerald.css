@@ -1,0 +1,114 @@
+:root {
+  --cyan: #95ffe2;
+  --amber: #bdff66;
+  --magenta: #38f890;
+  --ivory: #e9fff6;
+  --panel: #061411;
+  --line: #407568;
+  --chrome-edge: conic-gradient(from 115deg, #09372e, #39e38a 10%, #c9ffeb 15%, #275344 20%, #06241a 32%, #9dff37 40%, #008f50 46%, #17453a 57%, #d6ffff 65%, #237a63 70%, #123229 81%, #63ff91 90%, #09372e);
+  --green-metal: radial-gradient(ellipse at 28% 0%, #a4ffe99c, transparent 46%), linear-gradient(180deg, #285e4c, #061a13 34%, #03100c 63%, #063d24 87%, #61ed79);
+  color-scheme: dark;
+}
+
+body {
+  background: radial-gradient(ellipse at 85% 38%, #09261a, transparent 45%), #030b09;
+  color: var(--ivory);
+}
+
+.site-header, .hero, .showcase iframe, .instrument, .demo-screen,
+.workspace-panel, .tool-inventory, .sequence-console, .compatibility, .download {
+  clip-path: none;
+  border: 2px solid transparent;
+  border-radius: 22px;
+  background: linear-gradient(155deg, #102b23, #040e0b 38%, #061611) padding-box, var(--chrome-edge) border-box;
+  box-shadow: inset 0 0 0 1px #ecfff552, inset 0 0 20px #42fc9622, 0 0 18px #29ff6b25;
+}
+
+.site-header {
+  border-radius: 0 0 18px 18px;
+  background: var(--green-metal) padding-box, var(--chrome-edge) border-box;
+}
+.hero, .download {
+  isolation: isolate;
+  overflow: hidden;
+  background: linear-gradient(#020d0a, #020d0a) padding-box, var(--chrome-edge) border-box;
+}
+.scene-shade {
+  background: linear-gradient(90deg, #030f0ceb, #04181333 70%), linear-gradient(0deg, #02120ee8, transparent 65%);
+}
+.hero-copy p, .download-content > p:first-child { color: #d6f7ea; }
+.hero h1, .workspace-heading h2, .system-title h2, .download h2 {
+  background: linear-gradient(180deg, #ecfff8 10%, #b5e1cd 43%, #75a78f 57%, #ecfff5 77%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+:is(.hero h1,.workspace-heading h2,.system-title h2,.download h2) span {
+  background: linear-gradient(180deg, #edffdb 8%, #58f596 42%, #1a8955 56%, #aaff4e 86%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+:is(.instrument,.demo-screen,.workspace-panel,.tool-inventory,.sequence-console,.download)::before,
+:is(.instrument,.demo-screen,.workspace-panel,.tool-inventory,.sequence-console,.download)::after {
+  clip-path: none;
+  inset: 4px;
+  border: 1px solid #69d7a94a;
+  border-radius: 16px;
+  background: none;
+}
+:is(.instrument,.demo-screen,.workspace-panel,.tool-inventory,.sequence-console,.download)::after { display: none; }
+.demo-screen { overflow: hidden; }
+.instrument-title, .demo-foot { background: var(--green-metal); color: #e1fff3; }
+
+.site-header nav a, .hero-action, .download-button, .feature-scroll-controls button,
+.menu-button, .mobile-navigation, .study-panel button {
+  clip-path: none;
+  border: 1px solid #65cd9f;
+  border-radius: 999px;
+  background: var(--green-metal);
+  color: #e6fff3;
+  box-shadow: inset 0 1px #e3fff49b, inset 0 -1px #9eff6c9e, 0 2px 12px #14ff7140;
+}
+.hero-download, .download-button {
+  background: linear-gradient(180deg, #edfff7, #7effb3 45%, #32de75 52%, #bcff7f);
+  color: #052016;
+}
+.download-button::before, .download-button::after { display: none; }
+:is(.site-header nav a,.hero-action,.download-button,.feature-scroll-controls button):hover {
+  border-color: #caff78;
+  box-shadow: inset 0 1px #fff, 0 0 16px #51ff7799;
+}
+:focus-visible { outline: 2px solid #c3ff80; outline-offset: 3px; }
+
+.kit-ribbon {
+  position: relative;
+  aspect-ratio: 12;
+  background: var(--chrome-edge);
+  border-radius: 61% 39% 66% 34% / 71% 44% 56% 29%;
+  box-shadow: inset 0 1px 2px #f5ffff, inset 0 -3px 8px #001d13, 0 0 18px #32f78d66;
+}
+.kit-ribbon::after {
+  content: "";
+  position: absolute;
+  inset: 15% 3% 23%;
+  border-radius: inherit;
+  background: radial-gradient(ellipse at 22% 14%, #d7fff0, transparent 18%), linear-gradient(168deg, #077559, #002319 50%, #48f462 57%, #032c20 74%);
+}
+.kit-orbit, .kit-star, .kit-formats, .kit-tool-links, .kit-barcode { filter: hue-rotate(65deg) saturate(1.45); }
+.compatibility-grid > div { border-color: #4eae85; }
+
+@media(max-width:760px) {
+  .site-header nav a { border-radius: 999px; }
+  .hero, .showcase iframe, .instrument, .demo-screen, .workspace-panel,
+  .tool-inventory, .sequence-console, .compatibility, .download { border-radius: 16px; }
+  :is(.instrument,.demo-screen,.workspace-panel,.tool-inventory,.sequence-console,.download)::before { border-radius: 11px; }
+}
+@media(forced-colors:active) {
+  :is(.hero h1,.workspace-heading h2,.system-title h2,.download h2),
+  :is(.hero h1,.workspace-heading h2,.system-title h2,.download h2) span {
+    background: none;
+    -webkit-text-fill-color: CanvasText;
+  }
+}
